@@ -310,6 +310,30 @@
     v(8pt)
   }
 
+  set list(
+    indent: 1.2em,
+    tight: false,
+    marker: (
+      [•],[--], [\*]
+    )
+  )
+  
+  show list:it => {
+    set par(spacing: 1.2em)
+    it
+  }
+
+  set enum(
+    indent: 1.2em,
+    tight: true,
+    numbering: "1.a.i."
+  )
+
+  show enum:it => {
+    set par(spacing: 1.2em)
+    it
+  }
+
   // BODY
   document-state.update("MAINMATTER")
   pagebreak()

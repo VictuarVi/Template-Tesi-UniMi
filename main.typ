@@ -1,11 +1,6 @@
-// Metadata commands
-
-
 #import "lib.typ": *
 
 #show: project.with()
-
-// typst w main.typ --pdf-standard a-3b
 
 #show: frontmatter.with()
 
