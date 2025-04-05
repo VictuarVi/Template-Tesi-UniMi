@@ -131,7 +131,7 @@
       + linebreak()
       + upper(cdl),
   )
-  
+
   v(1cm)
 
   // thesis title
@@ -314,11 +314,13 @@
     indent: 1.2em,
     tight: false,
     marker: (
-      [•],[--], [\*]
-    )
+      [•],
+      [--],
+      [\*],
+    ),
   )
-  
-  show list:it => {
+
+  show list: it => {
     set par(spacing: 1.2em)
     it
   }
@@ -326,10 +328,10 @@
   set enum(
     indent: 1.2em,
     tight: true,
-    numbering: "1.a.i."
+    numbering: "1.a.i.",
   )
 
-  show enum:it => {
+  show enum: it => {
     set par(spacing: 1.2em)
     it
   }
@@ -407,35 +409,48 @@
     numbering: "1",
     footer: { },
     header: context {
-      // CAPITOLO + numero + "." + heading1 + h(1fr) + page.number
-      let chapters = query(selector(heading.where(level: 1)).after(here()))
-      if (chapters != ()) {
+      let prefix = if (document-state.get() == "MAINMATTER") {
+        if (text.lang == "it") {
+          "Capitolo "
+        } else {
+          "Chapter "
+        }
+      } else if (document-state.get() == "APPENDIX") {
+        if (text.lang == "it") {
+          "Appendice "
+        } else {
+          "Appendix "
+        }
+      }
+
+      let headings1 = query(selector(heading.where(level: 1))).filter(h1 => here().page() == h1.location().page())
+      let before = query(selector(heading.where(level: 1)).before(here()))
+
+      let number = 0
+      let string = if (headings1.len() == 0) {
+        if (document-state.get() == "APPENDIX") {
+          number = counter(heading).display("A")
+        } else {
+          number = counter(heading).display()
+        }
+        before.last().body
+      } else if (headings1.last() == headings1.first()) {
+        if (document-state.get() == "APPENDIX") {
+          number = str(counter(heading).at(headings1.first().location()).at(0))
+        } else {
+          number = str(counter(heading).at(headings1.first().location()).at(0))
+        }
+        headings1.first().body
+      }
+
+      // combine all
+      upper(
         text(
           style: "italic",
-          upper(
-            {
-              if (document-state.get() == "MAINMATTER") {
-                if (text.lang == "it") {
-                  "Capitolo "
-                } else {
-                  "Chapter "
-                }
-              } else if (document-state.get() == "APPENDIX") {
-                if (text.lang == "it") {
-                  "Appendice "
-                } else {
-                  "Appendix "
-                }
-              }
-            }
-              + counter(selector(heading.where(level: 1))).display()
-              + ". "
-              + chapters.first().body,
-          ),
-        )
-        h(1fr)
-        counter(page).display()
-      }
+          prefix + str(number) + ". " + string,
+        ),
+      )
+      h(1fr) + counter(page).display()
     },
   )
 
@@ -453,6 +468,7 @@
 #let backmatter(body) = context {
   document-state.update("BACKMATTER")
   set heading(numbering: none)
+  set page(header: none, footer: align(center, counter(page).display()))
 
   body
 }
