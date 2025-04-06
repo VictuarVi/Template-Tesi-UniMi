@@ -15,6 +15,6 @@ typst w main.typ --pdf-standard a-3b
 - [x] Formattazione elenchi
 - [x] Tipologie di numbering per front-,main- e backmatter
 - [ ] Togliere header ogni volta che c'è una Heading 1
-- [ ] Localizzazione più modulare
+- [x] Localizzazione più modulare
 - [ ] Rimuovere indentazione del primo paragrafo per ogni heading1
 - [ ] Mappare da Int a Characters (1 ==> A, 2 ==> B...)

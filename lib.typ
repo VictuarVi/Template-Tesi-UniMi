@@ -13,12 +13,18 @@
 
 #let document-state = state("TITLE_PAGE", true)
 
+#let localization = yaml("utils/locale.yaml")
+
 #let project(
+  // Name of the university
   university: "Università degli Studi di Milano",
+  // Path of the logo of the university
   unilogo: "img/unimi.svg",
+  // Faculty, departament and course in which you are enrolled
   faculty: [Facoltà di Scienze e Tecnologie],
   department: [Dipartimento di Informatica \ Giovanni degli Antoni],
-  cdl: [Laurea],
+  cdl: [Corsi di Laurea Triennale in \ Corso di Laurea],
+  // Title to be printed on the thesis
   printedtitle: {
     let typst = {
       set text(
@@ -37,41 +43,31 @@
         text("t")
       })
     }
-    [Un template serio realizzato \ con #typst]
+    [Un template realizzato \ con #typst]
   },
-  title: "Un template serio",
+  // Title to be left on metadata
+  title: "Un template meraviglioso",
+  // Type of thesis
   typeofthesis: "Elaborato Finale",
+  // Author and corresponding fullname, serial number
   author: (
     name: "Nome Cognome",
-    matricola: "123456",
+    serial_number: "123456",
   ),
-  // dedica
+  // Dedication, acknowledgements
   dedication: "",
-  // ringraziamenti
   acknowledgements: none,
+  // Language of the thesis. This will change some prefixex (see utils/locale.yaml)
   language: "it",
+  // Supervisors and cosupervisors
   supervisors: (
-    "Relatore 1",
-    "Relatore 2",
-    "Relatore 2",
+    "Prof. Enrico Fermi",
   ),
-  co-supervisors: (
-    "Corelatore 1",
-    "Corelatore 2",
-    "Corelatore 3",
+  cosupervisors: (
+    "Prof. Ezio Auditore da Firenze",
+    "Prof. Francesco Bianchi",
   ),
-  laboratories: (
-    (
-      name: [],
-      url: "",
-      logo: "",
-    ),
-    (
-      name: [],
-      url: "",
-      logo: "",
-    ),
-  ),
+  // The academic year of the gradutation; defaults to the current year
   academicyear: "",
   body,
 ) = {
@@ -86,7 +82,11 @@
     spacing: 0.6em,
     first-line-indent: 1.2em,
   )
-  // show math.equation: set text(font: "Palatino")
+
+  let paper = (
+    height: 24cm,
+    width: 17cm,
+  )
 
   set page(
     // height: 24cm,
@@ -98,9 +98,9 @@
       left: 3.5cm,
       right: 2.5cm,
     ),
-    numbering: "i",
+    numbering: none,
 
-    // da rivedere
+    // TODO is this actually correct?
     header-ascent: 1.03cm,
   )
 
@@ -116,58 +116,44 @@
 
   align(
     center,
-    text(size: sizes.LARGE, university) + linebreak() + upper(faculty) + linebreak(),
+    {
+      text(size: sizes.LARGE, university) + linebreak()
+      upper(faculty)
+      v(0.0135 * paper.height)
+      upper(department)
+      v(0.02 * paper.height)
+      logo(unilogo)
+      v(0.0135 * paper.height)
+      upper(cdl)
+    },
   )
 
-  v(1cm)
+  // v(0.0168 * paper.height)
+  v(1fr)
 
-  align(
-    center,
-    upper(department)
-      + linebreak()
-      + logo(unilogo)
-      + linebreak()
-      + upper("Corso di Laurea Triennale in")
-      + linebreak()
-      + upper(cdl),
-  )
-
-  v(1cm)
-
-  // thesis title
+  // thesis printed title
   align(
     center,
     text(size: sizes.Large, upper(printedtitle)),
   )
 
-  v(1cm)
+  // v(0.0673 * paper.height)
+  v(1fr)
 
-  // relatori & co
+  set text(size: sizes.large)
+
+  // supervisors & co
   align(
     left,
     context {
       let relatori = ()
       for name in supervisors {
-        (
-          if (text.lang == "it") {
-            let arr = ("Relatore:", name)
-            relatori.push(arr)
-          } else {
-            let arr = ("Supervisor:", name)
-            relatori.push(arr)
-          }
-        )
+        let arr = (localization.at(text.lang).supervisor + ":", name)
+        relatori.push(arr)
       }
-      for name in co-supervisors {
-        (
-          if (text.lang == "it") {
-            let arr = ("Co-Relatore:", name)
-            relatori.push(arr)
-          } else {
-            let arr = ("Co-Supervisor:", name)
-            relatori.push(arr)
-          }
-        )
+      for name in cosupervisors {
+        let arr = (localization.at(text.lang).cosupervisor + ":", name)
+        relatori.push(arr)
       }
       grid(
         columns: 2,
@@ -179,33 +165,29 @@
     },
   )
 
-  v(1cm)
+  v(0.0168 * paper.height)
+  // v(1fr)
 
-  // elaborato finale di...
+  // final composition
   align(
     right,
     box({
       context {
         set align(left)
-        typeofthesis
-        if (text.lang == "it") {
-          " di"
-        } else {
-          " by"
-        }
-        ":" + linebreak() + author.name + linebreak()
-        if (text.lang == "it") {
-          "Matr. Nr. "
-        } else {
-          "Matr. No. "
-        }
-        author.matricola
+        typeofthesis + " "
+        localization.at(text.lang).type_of_thesis
+        ":" + linebreak()
+        author.name + linebreak()
+        localization.at(text.lang).serial_number + " "
+        author.serial_number
       }
     }),
   )
 
-  v(1cm)
+  // v(0.0337 * paper.height)
+  v(1fr)
 
+  // Default academic year = current year
   if (academicyear == "") {
     let current_year = datetime.today().year()
     academicyear = str(current_year) + [ -- ] + str(current_year + 1)
@@ -214,32 +196,25 @@
   align(
     center,
     context {
-      smallcaps(
-        if (text.lang == "it") {
-          "Anno Accademico"
-        } else {
-          "Academic Year"
-        }
-          + " "
-          + academicyear,
-      )
+      smallcaps({
+        localization.at(text.lang).academic_year
+        " "
+        academicyear
+      })
     },
   )
 
-  // DEDICA
+  // Dedication
   dedication
 
-  // RINGRAZIAMENTI
-  context if (acknowledgements != none) {
-    if (text.lang == "it") {
-      heading("Riconoscimenti", level: 1)
-    } else {
-      heading("Acknowledgements", 1)
-    }
+  // Acknowledgements
+  if (acknowledgements != none) {
+    localization.at(text.lang).acknowledgements
     acknowledgements
   }
 
-  // TABLE OF CONTENTS
+  // Table of contents
+  // to override stock indentation
   show outline.entry: it => {
     if it.element.func() == figure {
       let res
@@ -269,24 +244,17 @@
 
   set heading(numbering: "1.1")
 
-  // Interr. di pagina prima di ogni heading 1 ~ Chapter di LaTeX
+  // Page break before each heading 1, which is begin treated as a LaTeX's Chapter
   show heading.where(level: 1): it => {
-    // set page(header: {})
     pagebreak()
     v(3cm)
-    if (document-state.get() == "MAINMATTER") {
-      if (text.lang == "it") {
-        "Capitolo "
-      } else {
-        "Chapter "
+    if (it.numbering != none) {
+      if (document-state.get() == "MAINMATTER") {
+        localization.at(text.lang).chapter
+      } else if (document-state.get() == "APPENDIX") {
+        localization.at(text.lang).appendix
       }
-      counter(selector(heading)).display()
-    } else if (document-state.get() == "APPENDIX") {
-      if (text.lang == "it") {
-        "Appendice "
-      } else {
-        "Appendix "
-      }
+      " "
       counter(selector(heading)).display()
     }
     v(10pt)
@@ -294,22 +262,21 @@
     it.body
   }
 
+  // Heading sizes
   show heading: it => {
     if (it.level == 1) {
-      text(size: sizes.LARGE, it)
-    }
-    if (it.level == 2) {
       text(size: sizes.Large, it)
     }
-    if (it.level == 3) {
+    if (it.level == 2) {
       text(size: sizes.large, it)
     }
-    if (it.level == 4) {
+    if (it.level >= 3) {
       text(size: sizes.normalsize, it)
     }
     v(8pt)
   }
 
+  // Itemize and Enumerate settings
   set list(
     indent: 1.2em,
     tight: false,
@@ -336,68 +303,29 @@
     it
   }
 
-  // BODY
+  // Workaround to print links in monospaced font
+  show link: it => {
+    set text(font: "JetBrainsMono NF")
+    it
+  }
+
+  // Body
   document-state.update("MAINMATTER")
   pagebreak()
   body
 }
 
-// #let faculty(string) = {
-//   text(upper(string))
-// }
-
-// #let department(string) = {
-//   text(upper(string))
-// }
-
-// #let cdl(string) = {
-//   text(upper(string))
-// }
-
-// #let serialnumber(string) = context {
-//   if (text.lang == "it") {
-//     "Matr Nr."
-//   } else {
-//     "Matr. No."
-//   }
-//   string
-// }
-
-// #let matricola(string) = {
-//   serialnumber(string)
-// }
-
-// #let typeofthesis(string) = context {
-//   string
-//   if (text.lang == "it") {
-//     "di"
-//   } else {
-//     "by"
-//   }
-//   ":" + string
-// }
-
-// #let academicyear(string) = context {
-//   if (text.lang == "it") {
-//     "Anno Accademico"
-//   } else {
-//     "Academic year"
-//   }
-// }
-
-#let language_selector(..args) = {
-  if (text.lang == "it") {
-    return args.pos().first()
-  } else {
-    return args.pos().last()
-  }
-}
-
-// SEZIONI DEL DOCUMENTO
-
 #let frontmatter(body) = {
   document-state.update("FRONTMATTER")
   set heading(numbering: none)
+
+  body
+}
+
+#let acknowledgements(body) = {
+  document-state.update("ACKNOWLEDGEMENTS")
+  counter(page).update(0)
+  set page(numbering: "i")
 
   body
 }
@@ -410,19 +338,12 @@
     footer: { },
     header: context {
       let prefix = if (document-state.get() == "MAINMATTER") {
-        if (text.lang == "it") {
-          "Capitolo "
-        } else {
-          "Chapter "
-        }
+        localization.at(text.lang).chapter
       } else if (document-state.get() == "APPENDIX") {
-        if (text.lang == "it") {
-          "Appendice "
-        } else {
-          "Appendix "
-        }
+        localization.at(text.lang).appendix
       }
 
+      // Queries the heading FOR THE CURRENT PAGE
       let headings1 = query(selector(heading.where(level: 1))).filter(h1 => here().page() == h1.location().page())
       let before = query(selector(heading.where(level: 1)).before(here()))
 
@@ -431,8 +352,9 @@
         if (document-state.get() == "APPENDIX") {
           number = counter(heading).display("A")
         } else {
-          number = counter(heading).display()
+          number = counter(heading.where(level: 1)).display()
         }
+        // if there is no level 1 heading on the current page, print the last lvl 1 heading
         before.last().body
       } else if (headings1.last() == headings1.first()) {
         if (document-state.get() == "APPENDIX") {
@@ -443,11 +365,11 @@
         headings1.first().body
       }
 
-      // combine all
+      // combinining all
       upper(
         text(
           style: "italic",
-          prefix + str(number) + ". " + string,
+          prefix + " " + str(number) + ". " + string,
         ),
       )
       h(1fr) + counter(page).display()
@@ -473,12 +395,40 @@
   body
 }
 
-// LABORATORI PREDEFINITI
+// Laboratories
 
-#let lab(string) = { }
+#let lab(string) = context {
+  if (text.lang == "it") {
+    labprefix.it
+  } else {
+    labprefix.en
+  }
+}
 #let llab(string) = { }
 #let laburl(string) = { }
 #let lablogo(string) = { }
+
+#let labsizes = (
+  space: 1mm,
+  size: 25mm,
+)
+
+#let closingpage(laboratories) = context {
+  set page(footer: none)
+  pagebreak()
+  v(1fr)
+  set align(center)
+  image(
+    laboratories.logo,
+    height: labsizes.size,
+    width: labsizes.size,
+  )
+
+  localization.at(text.lang).lab_prefix + " "
+  laboratories.name + linebreak()
+  laboratories.company + linebreak()
+  link("", laboratories.url)
+}
 
 // ADAPT Lab
 #let adaptlab = {
