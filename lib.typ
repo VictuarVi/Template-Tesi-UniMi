@@ -331,6 +331,8 @@
 }
 
 #let mainmatter(body) = {
+  outline(indent: 1em)
+
   document-state.update("MAINMATTER")
   set heading(numbering: "1.1")
   set page(
@@ -395,17 +397,6 @@
 
 // Laboratories
 
-#let lab(string) = context {
-  if (text.lang == "it") {
-    labprefix.it
-  } else {
-    labprefix.en
-  }
-}
-#let llab(string) = { }
-#let laburl(string) = { }
-#let lablogo(string) = { }
-
 #let labsizes = (
   space: 1mm,
   size: 25mm,
@@ -413,7 +404,7 @@
 
 #let laboratories = yaml("utils/laboratories.yaml")
 
-#let closingpage(name, laboratories:laboratories) = context {
+#let closingpage(name, laboratories: laboratories) = context {
   set page(footer: none)
   // pagebreak()
   v(1fr)

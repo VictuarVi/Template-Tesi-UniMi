@@ -10,8 +10,6 @@
 
 #include "sections/ringraziamenti.typ"
 
-#outline(indent: 1em)
-
 #show: mainmatter.with()
 
 #include "sections/introduzione.typ"
