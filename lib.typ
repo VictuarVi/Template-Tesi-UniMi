@@ -345,7 +345,7 @@
       if (headings1.len() != 0) {
         return
       }
-     
+
       let prefix = if (document-state.get() == "MAINMATTER") {
         localization.at(text.lang).chapter
       } else if (document-state.get() == "APPENDIX") {
@@ -411,142 +411,21 @@
   size: 25mm,
 )
 
-#let closingpage(laboratories) = context {
+#let laboratories = yaml("utils/laboratories.yaml")
+
+#let closingpage(name, laboratories:laboratories) = context {
   set page(footer: none)
-  pagebreak()
+  // pagebreak()
   v(1fr)
   set align(center)
   image(
-    laboratories.logo,
+    laboratories.at(name).logo,
     height: labsizes.size,
     width: labsizes.size,
   )
 
   localization.at(text.lang).lab_prefix + " "
-  laboratories.name + linebreak()
-  laboratories.company + linebreak()
-  link("", laboratories.url)
-}
-
-// ADAPT Lab
-#let adaptlab = {
-  llab("ADAPT La")
-  laburl("https://cazzola.di.unimi.it/adapt-lab.html")
-  lablogo("immagini/loghi/adapt")
-}
-// AIS Lab - Sistemi Intelligenti Applicati
-#let aislab = {
-  lab("Laboratorio di Sistemi Intelligenti Applicati (AIS Lab")
-  laburl("http://ais-lab.di.unimi.it")
-  lablogo("immagini/loghi/aislab")
-}
-// AnacletoLab - Laboratorio di Biologia Computazionale e Bioinformatica
-#let anacletolab = {
-  llab("AnacletoLa")
-  laburl("http://anacletolab.di.unimi.it")
-  lablogo("immagini/loghi/anacleto")
-}
-// BiSP Lab - Biomedical Image and Signal Processing Lab
-#let bisplab = {
-  lab("Biomedical Image and Signal Processing (BiSP) La")
-  laburl("https://bisp.di.unimi.it")
-  lablogo("immagini/loghi/bisp")
-}
-// CONNETS - Computer Networks and Network Science Lab
-#let connetslab = {
-  lab("Computer Networks and Network Science (CONNETS) La")
-  laburl("https://connets.di.unimi.it")
-  lablogo("immagini/loghi/connets")
-}
-// EveryWare Lab - Data Management for Mobile and Pervasive Computing
-#let everywarelab = {
-  llab("EveryWare La")
-  laburl("http://everywarelab.di.unimi.it")
-  lablogo("immagini/loghi/everyware")
-}
-// FALSE Lab - Metodi Formali ed Algoritmi per Sistemi Large-Scale
-// TODO ricontrollare
-#let falselab = {
-  lab("Formal methods and Algorithms for Large-Scale systEms (FALSE)")
-  laburl("http://false.di.unimi.it")
-  lablogo("immagini/loghi/false")
-}
-// IEBI Lab - Industrial, Environmental and Biometric Informatics Laboratory
-// TODO ricontrollare
-#let iebilab = {
-  llab("Industrial, Environmental and Biometric Informatics (IEBI) Laboratory")
-  laburl("http://iebil.di.unimi.it")
-  lablogo("immagini/loghi/iebil")
-}
-// ISLab - Information Systems and Knowledge Management
-// TODO ricontrollare
-#let islab = {
-  llab("Information Systems and Knowledge Management Laboratory (ISLab)")
-  laburl("http://islab.di.unimi.it")
-  lablogo("immagini/loghi/islab")
-}
-// LAILA - Laboratory of Artificial Intelligence and Learning Algorithms
-// TODO ricontrollare
-#let lailalab = {
-  lab("Laboratory of Artificial Intelligence and Learning Algorithms (LAILA)")
-  laburl("https://sites.google.com/view/lailaunimi")
-  lablogo("immagini/loghi/laila")
-}
-// LALALab - Linguaggi, Automi, Logica Algebrica
-#let lalalab = {
-  lab("Laboratorio di Linguaggi, Automi, Logica Algebrica (LALALab)")
-}
-// LAW - Laboratorio di Algoritmica per il Web
-#let lawlab = {
-  lab("Laboratorio di Algoritmica per il Web (LAW)")
-  laburl("http://law.di.unimi.it")
-  lablogo("immagini/loghi/law")
-}
-// LaSER - System security and cryptography Lab
-#let laserlab = {
-  lab("System security and cryptography Lab (LaSER")
-  laburl("https://security.di.unimi.it/")
-  lablogo("immagini/loghi/laser")
-}
-// LIM - Laboratorio di Informatica Musicale
-#let limlab = {
-  lab("Laboratorio di Informatica Musicale (LIM")
-  laburl("https://www.lim.di.unimi.it")
-  lablogo("immagini/loghi/lim")
-}
-// MIPS Lab - Multimedia Interaction Perception and Social Lab
-#let mipslab = {
-  lab("Multimedia Interaction Perception and Social (MIPS) La")
-  laburl("http://mips.di.unimi.it")
-  lablogo("immagini/loghi/mips")
-}
-// OptLab - Laboratorio di Ricerca Operativa
-#let optlab = {
-  lab("Laboratorio di Ricerca Operativa (OptLab")
-  laburl("http://optlab.di.unimi.it")
-  lablogo("immagini/loghi/opt")
-}
-// PHuSe - Perceptual Computing and Human Sensing Lab
-#let phuselab = {
-  lab("Perceptual Computing and Human Sensing (PHuSe) La")
-  laburl("http://phuselab.di.unimi.it")
-  lablogo("immagini/loghi/phuse")
-}
-// PONG - Playlab for innovation in games
-#let ponglab = {
-  lab("Playlab for innovation in games (PONG")
-  laburl("https://pong.di.unimi.it")
-  lablogo("immagini/loghi/pong")
-}
-// SESAR Lab - SEcure Service-oriented Architectures Research Lab
-#let sesarlab = {
-  lab("SEcure Service-oriented Architectures Research (SESAR) La")
-  laburl("http://sesar.di.unimi.it")
-  lablogo("immagini/loghi/sesar")
-}
-// SPDP - Security, Privacy and Data Protection
-#let spdplab = {
-  lab("Security, Privacy and Data Protection (SPDP) La")
-  laburl("http://spdp.di.unimi.it")
-  lablogo("immagini/loghi/spdp")
+  laboratories.at(name).name + linebreak()
+  // laboratories.at(name).company + linebreak()
+  link("", laboratories.at(name).url)
 }

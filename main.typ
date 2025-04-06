@@ -1,8 +1,6 @@
 #import "lib.typ": *
 
-#show: project.with(
-  language: "it"
-)
+#show: project.with(language: "it")
 
 #show: frontmatter.with()
 
@@ -30,11 +28,4 @@
 
 #bibliography(full: true, "bibliografia.bib")
 
-#let laboratories = (
-  name: [Laboratorio di Ricerca],
-  company: [in collaborazione con l'Azienda specifica],
-  url: [https://di.unimi.it/it/ricerca/risorse-e-luoghi-della-ricerca/laboratori-di-ricerca],
-  logo: "img/unimi.svg",
-)
-
-#closingpage(laboratories)
+#closingpage("adaptlab")
