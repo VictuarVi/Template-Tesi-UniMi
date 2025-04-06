@@ -102,6 +102,68 @@
 
     // TODO is this actually correct?
     header-ascent: 1.03cm,
+    header: context {
+      if (
+        document-state.get() == "TITLE_PAGE"
+          or document-state.get() == "FRONTMATTER"
+          or document-state.get() == "ACKNOWLEDGEMENTS"
+          or document-state.get() == "BACKMATTER"
+      ) {
+        none
+      } else if (
+        document-state.get() == "MAINMATTER"
+      ) {
+        // Queries the heading FOR THE CURRENT PAGE
+        let headings1 = query(selector(heading.where(level: 1))).filter(h1 => here().page() == h1.location().page())
+        let before = query(selector(heading.where(level: 1)).before(here()))
+
+        // if there is a lvl 1 heading on the same page, the header must be empty
+        if (headings1.len() != 0) {
+          return
+        }
+
+        let prefix = localization.at(text.lang).chapter
+
+        let number = counter(heading.where(level: 1)).display()
+        // if there is no level 1 heading on the current page, print the last lvl 1 heading
+        let string = if (before.len() != 0) {
+          before.last().body
+        }
+
+        // combinining all
+        upper(
+          text(
+            style: "italic",
+            prefix + " " + str(number) + ". " + string,
+          ),
+        )
+        h(1fr) + counter(page).display()
+      } else if (document-state.get() == "APPENDIX") {
+        // Queries the heading FOR THE CURRENT PAGE
+        let headings1 = query(selector(heading.where(level: 1))).filter(h1 => here().page() == h1.location().page())
+        let before = query(selector(heading.where(level: 1)).before(here()))
+
+        // if there is a lvl 1 heading on the same page, the header must be empty
+        if (headings1.len() != 0) {
+          return
+        }
+
+        let prefix = localization.at(text.lang).appendix
+
+        let number = counter(heading).display("A")
+        // if there is no level 1 heading on the current page, print the last lvl 1 heading
+        let string = before.last().body
+
+        // combinining all
+        upper(
+          text(
+            style: "italic",
+            prefix + " " + str(number) + ". " + string,
+          ),
+        )
+        h(1fr) + counter(page).display()
+      }
+    },
   )
 
   // TITLE PAGE
@@ -204,39 +266,7 @@
     },
   )
 
-  // Dedication
-  dedication
-
-  // Acknowledgements
-  if (acknowledgements != none) {
-    localization.at(text.lang).acknowledgements
-    acknowledgements
-  }
-
   // Table of contents
-  // to override stock indentation
-  show outline.entry: it => {
-    if it.element.func() == figure {
-      let res
-      if it.element.numbering != none {
-        res = link(
-          it.element.location(),
-          it.indented(it.prefix(), [--- ] + it.element.body),
-        )
-      } else {
-        res = link(
-          it.element.location(),
-          it.indented(it.prefix(), it.element.body),
-        )
-      }
-
-      v(2.3em, weak: true)
-      strong(text(size: 16pt, res))
-    } else {
-      it
-    }
-  }
-
   show outline.entry.where(level: 1): it => {
     v(19pt, weak: true)
     strong(it.indented(it.prefix(), it.element.body + h(1fr) + it.page()))
@@ -310,7 +340,6 @@
   }
 
   // Body
-  document-state.update("MAINMATTER")
   pagebreak()
   body
 }
@@ -318,6 +347,14 @@
 #let frontmatter(body) = {
   document-state.update("FRONTMATTER")
   set heading(numbering: none)
+
+  body
+}
+
+#let acknowledgements(body) = {
+  document-state.update("DEDICATION")
+  set text(style: italic)
+  set align(right)
 
   body
 }
@@ -338,42 +375,6 @@
   set page(
     numbering: "1",
     footer: { },
-    header: context {
-      // Queries the heading FOR THE CURRENT PAGE
-      let headings1 = query(selector(heading.where(level: 1))).filter(h1 => here().page() == h1.location().page())
-      let before = query(selector(heading.where(level: 1)).before(here()))
-
-      // if there is a lvl 1 heading on the same page, the header must be empty
-      if (headings1.len() != 0) {
-        return
-      }
-
-      let prefix = if (document-state.get() == "MAINMATTER") {
-        localization.at(text.lang).chapter
-      } else if (document-state.get() == "APPENDIX") {
-        localization.at(text.lang).appendix
-      }
-
-      let number = 0
-      let string = if (headings1.len() == 0) {
-        if (document-state.get() == "APPENDIX") {
-          number = counter(heading).display("A")
-        } else {
-          number = counter(heading.where(level: 1)).display()
-        }
-        // if there is no level 1 heading on the current page, print the last lvl 1 heading
-        before.last().body
-      }
-
-      // combinining all
-      upper(
-        text(
-          style: "italic",
-          prefix + " " + str(number) + ". " + string,
-        ),
-      )
-      h(1fr) + counter(page).display()
-    },
   )
 
   body
@@ -390,7 +391,7 @@
 #let backmatter(body) = context {
   document-state.update("BACKMATTER")
   set heading(numbering: none)
-  set page(header: none, footer: align(center, counter(page).display()))
+  set page(footer: align(center, counter(page).display()))
 
   body
 }
