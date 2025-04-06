@@ -337,15 +337,20 @@
     numbering: "1",
     footer: { },
     header: context {
+      // Queries the heading FOR THE CURRENT PAGE
+      let headings1 = query(selector(heading.where(level: 1))).filter(h1 => here().page() == h1.location().page())
+      let before = query(selector(heading.where(level: 1)).before(here()))
+
+      // if there is a lvl 1 heading on the same page, the header must be empty
+      if (headings1.len() != 0) {
+        return
+      }
+     
       let prefix = if (document-state.get() == "MAINMATTER") {
         localization.at(text.lang).chapter
       } else if (document-state.get() == "APPENDIX") {
         localization.at(text.lang).appendix
       }
-
-      // Queries the heading FOR THE CURRENT PAGE
-      let headings1 = query(selector(heading.where(level: 1))).filter(h1 => here().page() == h1.location().page())
-      let before = query(selector(heading.where(level: 1)).before(here()))
 
       let number = 0
       let string = if (headings1.len() == 0) {
@@ -356,13 +361,6 @@
         }
         // if there is no level 1 heading on the current page, print the last lvl 1 heading
         before.last().body
-      } else if (headings1.last() == headings1.first()) {
-        if (document-state.get() == "APPENDIX") {
-          number = str(counter(heading).at(headings1.first().location()).at(0))
-        } else {
-          number = str(counter(heading).at(headings1.first().location()).at(0))
-        }
-        headings1.first().body
       }
 
       // combinining all

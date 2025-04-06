@@ -5,7 +5,7 @@
 Compilare con:
 
 ```shell
-typst w main.typ --pdf-standard a-3b
+typst c main.typ --pdf-standard a-3b
 ```
 
 # TODO
@@ -14,7 +14,9 @@ typst w main.typ --pdf-standard a-3b
 - [x] Rendere "Capitolo"/"Appendice" modulare sulla base del `context` del documento
 - [x] Formattazione elenchi
 - [x] Tipologie di numbering per front-,main- e backmatter
-- [ ] Togliere header ogni volta che c'è una Heading 1
+- [x] Togliere header ogni volta che c'è una Heading 1
+  - [x] Mappare da Int a Characters (1 ==> A, 2 ==> B...) | Non serve più perché questo problema si poneva solo con la prima pagina delle appendici, ma comunque non dev'essere stampata
+  - [ ] Centralizzare la gestione dell'header mediante gli stati da UNA SOLA FUNZIONE in `project`
 - [x] Localizzazione più modulare
 - [ ] Rimuovere indentazione del primo paragrafo per ogni heading1
-- [ ] Mappare da Int a Characters (1 ==> A, 2 ==> B...)
+- [ ] Aggiungere un workflow per la preview del template in Github pages
