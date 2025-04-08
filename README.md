@@ -5,7 +5,7 @@
 Compilare con:
 
 ```shell
-typst c main.typ --pdf-standard a-3b
+typst c main.typ --pdf-standard a-3b --font-path fonts
 ```
 
 # TODO
