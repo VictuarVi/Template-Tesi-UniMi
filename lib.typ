@@ -79,7 +79,7 @@
   set text(lang: language)
   set par(
     justify: true,
-    spacing: 0.6em,
+    spacing: 0.8em,
     first-line-indent: 1.2em,
   )
 
@@ -150,7 +150,8 @@
 
         let prefix = localization.at(text.lang).appendix
 
-        let number = counter(heading).display("A")
+        // number :: [a-Z].[d] -> [a-Z]
+        let number = str(counter(heading).display()).split(".").at(0)
         // if there is no level 1 heading on the current page, print the last lvl 1 heading
         let string = before.last().body
 
@@ -344,8 +345,27 @@
 
   // Workaround to print links in monospaced font
   show link: it => {
-    set text(font: "JetBrainsMono NF")
+    set text(font: "JetBrainsMono NF", size: 0.8em)
     it
+  }
+
+  show raw.where(block: true): it => {
+    set text(font: "JetBrainsMono NF", weight: "light")
+    align(
+      center,
+      block(
+        // width: 100%,
+        fill: rgb("#ebf1f5"),
+        inset: 10pt,
+        stroke: rgb("#9cc9e7"),
+        // radius: 4pt,
+        align(center, it),
+      ),
+    )
+  }
+
+  show figure.where(kind: "toc"): it => {
+    align(start, it.body + v(1em))
   }
 
   // Body
@@ -355,6 +375,15 @@
 #let frontmatter(body) = {
   document-state.update("FRONTMATTER")
   set heading(numbering: none)
+
+  body
+}
+
+#let dedication(body) = {
+  document-state.update("DEDICATION")
+  pagebreak()
+  set align(right)
+  set text(style: "italic")
 
   body
 }
@@ -377,8 +406,8 @@
 
 #let appendix(body) = context {
   document-state.update("APPENDIX")
-  set heading(numbering: "A.1")
   counter(heading).update(0)
+  set heading(numbering: "A.1")
 
   body
 }
@@ -389,6 +418,34 @@
   set page(footer: align(center, counter(page).display()))
 
   body
+}
+
+// TOC in the TOC
+
+#let list = figure.with(
+  kind: "toc",
+  numbering: none,
+  supplement: none,
+  outlined: true,
+  caption: [],
+)
+
+#let target = (
+  figure
+    .where(
+      kind: "toc",
+      outlined: true,
+    )
+    .or(heading.where(outlined: true))
+)
+
+#let toc = context {
+  set page(footer: align(center, counter(page).display()))
+  outline(
+    title: list(localization.at(text.lang).toc),
+    indent: 1em,
+    target: target,
+  )
 }
 
 // Laboratories
