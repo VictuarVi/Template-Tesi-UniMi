@@ -16,7 +16,7 @@ This template is the result of the conversion from the [original LaTeX template]
 Compile with con:
 
 ```shell
-typst c main.typ --pdf-standard a-3b --font-path fonts
+typst c main.typ --pdf-standard a-3b
 ```
 
 > [!WARNING]
@@ -25,7 +25,7 @@ typst c main.typ --pdf-standard a-3b --font-path fonts
 The following is the canonical example of how the template can be structured:
 
 ```typ
-#import "@preview/unimi-thesis:0.1.0": *
+#import "@preview/unimi-thesis:1.0.0": *
 
 #show: project.with(language: "en")
 
