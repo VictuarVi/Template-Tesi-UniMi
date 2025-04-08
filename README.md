@@ -1,12 +1,15 @@
 # unimi-thesis 🎓
 
-This template is the result of the conversion from the [original $\LaTeX{}$ template](https://www.overleaf.com/project/641879675262cde2a670826b).
+This template is the result of the conversion from the [original LaTeX template](https://www.overleaf.com/project/641879675262cde2a670826b).
 
 ## Preview ✨
 
 <p align="center">
-  <img alt="Main" src="./template/thumbnail.png" width="45%">
+  <img alt="Frontispiece/First page" src="thumbnail.png" width="45%">
 </p>
+
+> [!TIP]
+> See `docs/instructions.pdf` for more informations about the template.
 
 ## Usage 🚀
 
