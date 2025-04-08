@@ -1,33 +1,32 @@
-#import "lib.typ": *
+#import "@local/unimi-thesis:1.0.0": *
 
-#show: project.with(language: "it")
+#show: project.with(language: "en")
 
 #show: frontmatter.with()
 
-#include "sections/dedica.typ"
+// dedication
 
 #show: acknowledgements.with()
 
-#include "sections/ringraziamenti.typ"
+// acknowledgements
 
 #toc
 
 #show: mainmatter.with()
 
-#include "sections/1_introduzione.typ"
-#include "sections/2_stato_dellarte.typ"
-#include "sections/3_tecnologie.typ"
-#include "sections/4_nome.typ"
-#include "sections/5_test.typ"
-#include "sections/6_conclusioni.typ"
+// main section of the thesis
 
 #show: appendix.with()
 
-#include "sections/A1_tirocinio.typ"
-#include "sections/A2_documenti.typ"
+// appendix
 
 #show: backmatter.with()
 
-#bibliography(full: true, "bibliografia.bib")
+// bibliography
 
+// associated laboratory
 #closingpage("adaptlab")
+
+// if there is the missing laboratory add it like this
+// #let missinglab = yaml("myoverride.yml")
+// #closingpage("mylab", laboratories: missinglab)
