@@ -29,8 +29,6 @@ Questo documento ha una duplice funzione: da un lato mostra un esempio completo 
 
 #lorem(60)
 
-#pagebreak()
-
 + Primo
 
 + Primo

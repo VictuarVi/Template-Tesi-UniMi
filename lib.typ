@@ -11,7 +11,7 @@
   Huge: 2.488em,
 )
 
-#let document-state = state("TITLE_PAGE", true)
+#let document-state = state("init", "TITLE_PAGE")
 
 #let localization = yaml("utils/locale.yaml")
 
@@ -98,7 +98,7 @@
       left: 3.5cm,
       right: 2.5cm,
     ),
-    numbering: none,
+    numbering: "i",
 
     // TODO is this actually correct?
     header-ascent: 1.03cm,
@@ -162,6 +162,17 @@
           ),
         )
         h(1fr) + counter(page).display()
+      }
+    },
+    footer: context {
+      let headings1 = query(selector(heading.where(level: 1))).filter(h1 => here().page() == h1.location().page())
+      let before = query(selector(heading.where(level: 1)).before(here()))
+
+      // if there is a lvl 1 heading on the same page, the footer must display the page numbering at the bottom center
+      if (headings1.len() != 0) {
+        align(center, counter(page).display())
+      } else {
+        return
       }
     },
   )
@@ -272,8 +283,6 @@
     strong(it.indented(it.prefix(), it.element.body + h(1fr) + it.page()))
   }
 
-  set heading(numbering: "1.1")
-
   // Page break before each heading 1, which is begin treated as a LaTeX's Chapter
   show heading.where(level: 1): it => {
     pagebreak()
@@ -340,7 +349,6 @@
   }
 
   // Body
-  pagebreak()
   body
 }
 
@@ -352,38 +360,25 @@
 }
 
 #let acknowledgements(body) = {
-  document-state.update("DEDICATION")
-  set text(style: italic)
-  set align(right)
-
-  body
-}
-
-#let acknowledgements(body) = {
   document-state.update("ACKNOWLEDGEMENTS")
-  counter(page).update(0)
   set page(numbering: "i")
 
   body
 }
 
 #let mainmatter(body) = {
-  outline(indent: 1em)
-
   document-state.update("MAINMATTER")
+  set page(numbering: "1")
   set heading(numbering: "1.1")
-  set page(
-    numbering: "1",
-    footer: { },
-  )
+  counter(page).update(1)
 
   body
 }
 
 #let appendix(body) = context {
   document-state.update("APPENDIX")
-  counter(heading).update(0)
   set heading(numbering: "A.1")
+  counter(heading).update(0)
 
   body
 }
