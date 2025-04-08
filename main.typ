@@ -10,19 +10,21 @@
 
 #include "sections/ringraziamenti.typ"
 
-#outline(indent: 1em)
+#toc
 
 #show: mainmatter.with()
 
-#include "sections/introduzione.typ"
-#include "sections/argomento_1.typ"
-#include "sections/argomento_2.typ"
-#include "sections/argomento_3.typ"
+#include "sections/1_introduzione.typ"
+#include "sections/2_stato_dellarte.typ"
+#include "sections/3_tecnologie.typ"
+#include "sections/4_nome.typ"
+#include "sections/5_test.typ"
+#include "sections/6_conclusioni.typ"
 
 #show: appendix.with()
 
-#include "sections/appendice_1.typ"
-#include "sections/appendice_2.typ"
+#include "sections/A1_tirocinio.typ"
+#include "sections/A2_documenti.typ"
 
 #show: backmatter.with()
 

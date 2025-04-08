@@ -21,3 +21,4 @@ typst c main.typ --pdf-standard a-3b --font-path fonts
 - [ ] Rimuovere indentazione del primo paragrafo per ogni heading1
 - [ ] Aggiungere un workflow per la preview del template in Github pages
 - [x] Dizionario per i laboratori
+- [ ] Aggiornare istruzioni (si parla di LaTeX & Co quando non serve più)
