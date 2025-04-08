@@ -1,14 +1,59 @@
-# Template per le tesi Statali
+# unimi-thesis 🎓
 
-[Documento originale su Overleaf](https://www.overleaf.com/project/641879675262cde2a670826b).
+This template is the result of the conversion from the [original $\LaTeX{}$ template](https://www.overleaf.com/project/641879675262cde2a670826b).
 
-Compilare con:
+## Preview ✨
+
+<p align="center">
+  <img alt="Main" src="./template/thumbnail.png" width="45%">
+</p>
+
+## Usage 🚀
+
+Compile with con:
 
 ```shell
 typst c main.typ --pdf-standard a-3b --font-path fonts
 ```
 
-# TODO
+> [!WARNING]
+> The generated PDF _must be_ PDF/A compliant.
+
+The following is the canonical example of how the template can be structured:
+
+```typ
+#import "@preview/unimi-thesis:0.1.0": *
+
+#show: project.with(language: "en")
+
+#show: frontmatter.with()
+
+// dedication
+
+#show: acknowledgements.with()
+
+// acknowledgements
+
+#toc
+
+#show: mainmatter.with()
+
+// main section of the thesis
+
+#show: appendix.with()
+
+// appendix
+
+#show: backmatter.with()
+
+// bibliography
+
+// associated laboratory
+#closingpage("adaptlab")
+
+```
+
+# TODO 📝
 
 - [x] Header delle pagine col titolo del Capitolo corrente
 - [x] Rendere "Capitolo"/"Appendice" modulare sulla base del `context` del documento

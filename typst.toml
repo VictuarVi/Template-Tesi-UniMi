@@ -1,10 +1,15 @@
 [package]
-name = "template-unimi"
+name = "unimi-thesis"
 version = "0.1.0"
 entrypoint = "src/lib.typ"
 authors = ["Vittorio Robecchi <https://www.github.com/victuarvi"]
 license = "MIT-0"
-description = "Template dell'UniMi, ma in Typst."
+description = "Unofficial thesis template for Università Statale degli Studi di Milano."
+repository = "https://github.com/VictuarVi/Template-Tesi-UniMi"
+keywords = ["thesis", "unimi", "università statale degli studi di milano"]
+categories = ["thesis", "paper"]
+disciples = ["computer-science", "mathematics", "physics"]
+compiler = "0.13.0"
 
 [template]
 path = "template"
