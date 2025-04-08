@@ -1,0 +1,12 @@
+[package]
+name = "template-unimi"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["Vittorio Robecchi <https://www.github.com/victuarvi"]
+license = "MIT-0"
+description = "Template dell'UniMi, ma in Typst."
+
+[template]
+path = "template"
+entrypoint = "main.typ"
+thumbnail = "thumbnail.png"

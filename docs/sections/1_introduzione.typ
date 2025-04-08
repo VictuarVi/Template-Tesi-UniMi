@@ -43,7 +43,7 @@ La scelta di come strutturare un lavoro esteso, quale un elaborato finale o una 
 
 #figure(
   image(
-    "../img/unimi.svg", width: 25%),
+    "../../template/img/unimi.svg", width: 25%),
   caption: [
     Il processo di trasformazione delle idee in testo~@hamalainen2019web.
   ],
