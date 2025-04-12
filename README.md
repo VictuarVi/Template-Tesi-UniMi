@@ -19,6 +19,6 @@ typst c main.typ --pdf-standard a-3b --font-path fonts
   - [x] Centralizzare la gestione dell'header mediante gli stati da UNA SOLA FUNZIONE in `project`
 - [x] Localizzazione più modulare
 - [ ] Rimuovere indentazione del primo paragrafo per ogni heading1
-- [ ] Aggiungere un workflow per la preview del template in Github pages
+- [ ] Aggiungere un workflow per la preview del template in Github pages (vedi [qui](https://github.com/VictuarVi/wt-intellij-guide))
 - [x] Dizionario per i laboratori
-- [ ] Aggiornare istruzioni (si parla di LaTeX & Co quando non serve più)
+- [x] Aggiornare istruzioni (si parla di LaTeX & Co quando non serve più)
