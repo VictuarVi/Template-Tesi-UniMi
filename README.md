@@ -9,7 +9,7 @@ This template is the result of the conversion from the [original LaTeX template]
 </p>
 
 > [!TIP]
-> See `docs/instructions.pdf` for more informations about the template.
+> See `docs/instructions.pdf` for more informations about the template (in Italian).
 
 ## Usage 🚀
 
@@ -19,7 +19,7 @@ Compile with con:
 typst c main.typ --pdf-standard a-3b
 ```
 
-The following is the canonical example of how the template can be structured:
+The following excerpt is the canonical example of how the template can be structured:
 
 ```typ
 #import "@preview/unimi-thesis:1.0.0": *
@@ -49,10 +49,10 @@ The following is the canonical example of how the template can be structured:
 // bibliography
 
 // associated laboratory
-#closingpage("adaptlab")
+#closingpage("associated_lab")
 
 ```
 
-# Issues 
+## Issues 
 
 - [ ] The first line after the Chapter should not be indented
