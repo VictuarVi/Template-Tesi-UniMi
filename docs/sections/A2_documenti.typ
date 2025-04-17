@@ -30,7 +30,7 @@ Si raccomanda di provare ripetutamente il discorso cronometrandosi e considerand
 
 Per via degli stringenti vincoli temporali, difficilmente una presentazione multimediale può superare la soglia di 15 slide. Questo valore è puramente indicativo, perché dipende dalla densità di informazioni della slide e dal tempo dedicato a ciascuna slide mentre si sta presentando.
 
-La scelta tecnologica più comune è Microsoft PowerPoint, ma qualsiasi alternativa (Prezi, Acrobat PDF, LaTeX, ecc.) è ammissibile.
+La scelta tecnologica più comune è Microsoft PowerPoint, ma qualsiasi alternativa (Prezi, Acrobat PDF, Typst, ecc.) è ammissibile.
 
 Gli errori più comuni da evitare sono:
 

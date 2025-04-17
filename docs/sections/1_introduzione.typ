@@ -1,17 +1,15 @@
 = Introduzione
 <cap:introduzione>
-Questo documento ha una duplice funzione: da un lato mostra un esempio completo di tesi redatto in LaTeX~e conforme allo standard PDF/A, e dall'altro contiene suggerimenti e risposte a domande frequenti poste dagli studenti. Se ne raccomanda, pertanto, un'attenta lettura.
+Questo documento ha una duplice funzione: da un lato mostra un esempio completo di tesi redatto in Typst~e conforme allo standard PDF/A, e dall'altro contiene suggerimenti e risposte a domande frequenti poste dagli studenti. Se ne raccomanda, pertanto, un'attenta lettura.
 
 == Il template
 <il-template>
-Se questo documento è stato ottenuto tramite condivisione diretta di file, è consigliabile accedere alla versione continuamente aggiornata e disponibile su Overleaf.
+Il template LaTeX è stato sviluppato, negli anni, dai membri del Laboratorio di Informatica Musicale (LIM) dell'Università degli Studi di Milano, in particolare da: Giorgio Presti, Luca Andrea Ludovico, Federico Avanzini, e Marco Tiraboschi. Questo template è un porting in Typst di quello LaTeX del LIM, la cui versione continuamente aggiornata è disponibile su Overleaf al seguente link:
 
 #box(
   inset: 1.2em,
   link("https://www.overleaf.com/read/hmffzxzhhdqn"),
 )
-
-Questo template è stato sviluppato, negli anni, dai membri del Laboratorio di Informatica Musicale dell'Università degli Studi di Milano, in particolare da: Giorgio Presti, Luca Andrea Ludovico, Federico Avanzini, e Marco Tiraboschi.
 
 È stato principalmente inteso per gli elaborati finali del corso di laurea triennale in Informatica Musicale, e poi esteso anche agli altri CdL del Dipartimento di Informatica, ma può essere riadattato anche per altri corsi cambiando i metadati nel preambolo. Nel resto del documento, dove non specificato, useremo il termine #emph[tesi] nella sua accezione generica che include anche gli elaborati triennali.
 
@@ -43,7 +41,9 @@ La scelta di come strutturare un lavoro esteso, quale un elaborato finale o una 
 
 #figure(
   image(
-    "../../template/img/unimi.svg", width: 25%),
+    "../../template/img/unimi.svg",
+    width: 25%,
+  ),
   caption: [
     Il processo di trasformazione delle idee in testo~@hamalainen2019web.
   ],
