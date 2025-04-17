@@ -19,7 +19,7 @@
   // Name of the university
   university: "Università degli Studi di Milano",
   // Path of the logo of the university
-  unilogo: "img/unimi.svg",
+  unilogo: "../template/img/unimi.svg",
   // Faculty, departament and course in which you are enrolled
   faculty: [Facoltà di Scienze e Tecnologie],
   department: [Dipartimento di Informatica \ Giovanni degli Antoni],

@@ -41,7 +41,7 @@ La scelta di come strutturare un lavoro esteso, quale un elaborato finale o una 
 
 #figure(
   image(
-    "../img/unimi.svg",
+    "../../template/img/unimi.svg",
     width: 25%,
   ),
   caption: [
