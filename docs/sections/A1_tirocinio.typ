@@ -46,7 +46,7 @@ Solitamente l'attività di tirocinio interno per la triennale si articola nei se
 Relativamente gli aspetti pratici, ogni relatore ha un suo modus operandi per la gestione dei tesisti, quanto riportato di seguito va quindi considerato a solo titolo esemplificativo; in particolare questa è la procedura tipica seguita dagli studenti del Corso di Laurea di Informatica Musicale:
 
 + Analisi dello stato dell'arte (Cap.~@chap:stato_arte). \
-  E' importante annotare tutto sin da subito usando LaTeX, perché poi andrà scritto nell'elaborato.
+  E' importante annotare tutto sin da subito usando Typst, perché poi andrà scritto nell'elaborato.
 
 + Definizione del problema, "design" del sistema, scelta degli strumenti
 

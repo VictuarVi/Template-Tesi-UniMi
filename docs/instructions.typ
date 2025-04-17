@@ -1,4 +1,4 @@
-#import "lib.typ": *
+#import "@local/unimi-thesis:1.0.0": *
 
 #show: project.with(language: "it")
 

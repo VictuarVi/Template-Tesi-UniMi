@@ -20,7 +20,7 @@ Uno degli errori più comuni è sottovalutare lo studio di un #emph[protocollo] 
 <risultati>
 I risultati dei test vanno presentati in modo chiaro e completo, possibilmente indicando la significatività statistica di quanto ottenuto.
 
-È buona norma fornire sia i dati numerici (un esempio di come si fanno le tabelle in LaTeX~è visibile in Tab.~@tab:sample), sia una rappresentazione grafica (a barre, a scatole e baffi, a violino, di dispersione, ecc.).
+È buona norma fornire sia i dati numerici (un esempio di come si fanno le tabelle in Typst~è visibile in Tab.~@tab:sample), sia una rappresentazione grafica (a barre, a scatole e baffi, a violino, di dispersione, ecc.).
 
 È inoltre consigliato riportare in appendice i dati grezzi completi, in modo da permettere al lettore di ripetere eventuali test statistici.
 

@@ -19,7 +19,7 @@
   // Name of the university
   university: "Università degli Studi di Milano",
   // Path of the logo of the university
-  unilogo: "img/unimi.svg",
+  unilogo: "../template/img/unimi.svg",
   // Faculty, departament and course in which you are enrolled
   faculty: [Facoltà di Scienze e Tecnologie],
   department: [Dipartimento di Informatica \ Giovanni degli Antoni],
@@ -281,7 +281,10 @@
   // Table of contents
   show outline.entry.where(level: 1): it => {
     v(19pt, weak: true)
-    strong(it.indented(it.prefix(), it.element.body + h(1fr) + it.page()))
+    link(
+      it.element.location(),
+      strong(it.indented(it.prefix(), it.element.body + h(1fr) + it.page())),
+    )
   }
 
   // Page break before each heading 1, which is begin treated as a LaTeX's Chapter
@@ -343,12 +346,6 @@
     it
   }
 
-  // Workaround to print links in monospaced font
-  show link: it => {
-    set text(font: "JetBrainsMono NF", size: 0.8em)
-    it
-  }
-
   show raw.where(block: true): it => {
     set text(font: "JetBrainsMono NF", weight: "light")
     align(
@@ -400,6 +397,9 @@
   set page(numbering: "1")
   set heading(numbering: "1.1")
   counter(page).update(1)
+
+  // Workaround to print links in monospaced font
+  show link: set text(font: "JetBrainsMono NF", size: 0.8em)
 
   body
 }
