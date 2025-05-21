@@ -1,4 +1,4 @@
-#import "@preview/unimi-thesis:1.0.0": *
+#import "@preview/modern-unimi-thesis:1.0.0": *
 
 #show: project.with(language: "it")
 

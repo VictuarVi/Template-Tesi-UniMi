@@ -1,6 +1,8 @@
-#import "@preview/unimi-thesis:1.0.0": *
+#import "@preview/modern-unimi-thesis:1.0.0": *
 
-#show: project.with(language: "en")
+#show: project.with(
+  language: "en",
+)
 
 #show: frontmatter.with()
 
@@ -13,7 +15,7 @@
 
 #lorem(100)
 
-#toc
+#toc // table of contents
 
 #show: mainmatter.with()
 
@@ -40,8 +42,7 @@
 // bibliography
 
 // associated laboratory
-#closingpage("adaptlab")
 
-// if the laboratory you want to cite is missing add it:
-// #let missinglab = yaml("myoverride.yml")
-// #closingpage("mylab", laboratories: missinglab)
+// if the laboratory you want to cite is missing:
+#let missinglab = yaml("myoverride.yml")
+#closingpage("mylab", laboratories: missinglab)

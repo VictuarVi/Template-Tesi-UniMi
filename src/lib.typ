@@ -69,6 +69,8 @@
   ),
   // The academic year of the gradutation; defaults to the current year
   academicyear: "",
+  // The chosen monospaced font (default: "JetBrainsMono NF")
+  // monospaced-font: "JetBrainsMono NF",
   body,
 ) = {
   set document(
@@ -346,8 +348,10 @@
     it
   }
 
+  let monospaced-font = "JetBrainsMono NF"
+
   show raw.where(block: true): it => {
-    set text(font: "JetBrainsMono NF", weight: "light")
+    set text(font: monospaced-font, weight: "light")
     align(
       center,
       block(
@@ -364,6 +368,9 @@
   show figure.where(kind: "toc"): it => {
     align(start, it.body + v(1em))
   }
+
+  // Workaround to print links in monospaced font
+  // show link: set text(font: monospaced-font, size: 0.8em)
 
   // Body
   body
@@ -399,6 +406,7 @@
   counter(page).update(1)
 
   // Workaround to print links in monospaced font
+  // after the TOC because the lvl. 1 headings are all links
   show link: set text(font: "JetBrainsMono NF", size: 0.8em)
 
   body
