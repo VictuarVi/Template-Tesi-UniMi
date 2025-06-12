@@ -1,23 +1,22 @@
-#import "@preview/modern-unimi-thesis:1.0.0": *
+#import "@preview/modern-unimi-thesis:0.1.0": *
 
-#show: project.with(
-  language: "en",
-)
+#show: project
 
-#show: frontmatter.with()
+#show: frontmatter
 
 // dedication
 
-#show: acknowledgements.with()
-
 // acknowledgements
+
+#show: acknowledgements
+
 = Acknowledgements
 
 #lorem(100)
 
 #toc // table of contents
 
-#show: mainmatter.with()
+#show: mainmatter
 
 // main section of the thesis
 
@@ -25,19 +24,19 @@
 
 #lorem(100)
 
-#lorem(100)
-
 = Second chapter
 
 #lorem(100)
 
-#lorem(100)
-
-#show: appendix.with()
-
 // appendix
 
-#show: backmatter.with()
+#show: appendix
+
+= First appendix
+
+#lorem(100)
+
+#show: backmatter
 
 // bibliography
 

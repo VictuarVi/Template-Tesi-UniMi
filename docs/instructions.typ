@@ -1,6 +1,28 @@
-#import "@preview/modern-unimi-thesis:1.0.0": *
+#import "@preview/modern-unimi-thesis:0.1.0": *
 
-#show: project.with(language: "it")
+#show: project.with(
+  printedtitle: {
+    let typst = {
+      set text(
+        size: 1.05em,
+        weight: "bold",
+        fill: rgb("#239dad"),
+      )
+      box({
+        text("t")
+        text("y")
+        h(0.035em)
+        text("p")
+        h(-0.025em)
+        text("s")
+        h(-0.015em)
+        text("t")
+      })
+    }
+    [Un template realizzato \ con #typst]
+  },
+  language: "it",
+)
 
 #show: frontmatter.with()
 

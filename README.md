@@ -1,6 +1,6 @@
 # modern-unimi-thesis 🎓
 
-This template is the result of the conversion from the [original LaTeX template](https://www.overleaf.com/project/641879675262cde2a670826b) in Italian.
+This template is the result of the conversion from the [original LaTeX template](https://www.overleaf.com/project/641879675262cde2a670826b), in Italian.
 
 ## Preview ✨
 
@@ -9,7 +9,7 @@ This template is the result of the conversion from the [original LaTeX template]
 </p>
 
 > [!TIP]
-> See `docs/instructions.pdf` for more informations about the template (in Italian).
+> See `docs/instructions.pdf` for more information about the template (in Italian).
 
 ## Usage 🚀
 
@@ -22,31 +22,31 @@ typst c main.typ --pdf-standard a-3b
 The following excerpt is the canonical example of how the template can be structured:
 
 ```typ
-#import "@preview/modern-unimi-thesis:1.0.0": *
+#import "@preview/modern-unimi-thesis:0.1.0": *
 
 #show: project.with(
   language: "en",
 )
 
-#show: frontmatter.with()
+#show: frontmatter
 
 // dedication
 
-#show: acknowledgements.with()
+#show: acknowledgements
 
 // acknowledgements
 
 #toc // table of contents
 
-#show: mainmatter.with()
+#show: mainmatter
 
 // main section of the thesis
 
-#show: appendix.with()
+#show: appendix
 
 // appendix
 
-#show: backmatter.with()
+#show: backmatter
 
 // bibliography
 

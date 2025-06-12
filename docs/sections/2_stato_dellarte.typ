@@ -45,3 +45,5 @@ Se è necessario citare siti Web, esistono tre strade ugualmente accettabili:
 + se i siti da citare sono numerosi, è più opportuno creare una sorta di bibliografia parallela e separata, detta #emph[sitografia];;
 
 + infine, se la citazione dei siti serve a individuare un prodotto e non una fonte di informazioni, la soluzione più opportuna è quella delle note a piè di pagina.
+
+Al momento, 12-06-2025, Typst *non* supporta le bibliografie multiple -- esiste il package alexandria @alexandria per sopperire a questa mancanza. In futuro il template potrà fornire delle funzioni ad-hoc per integrare questa funzione.

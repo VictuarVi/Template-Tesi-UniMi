@@ -19,32 +19,13 @@
   // Name of the university
   university: "Università degli Studi di Milano",
   // Path of the logo of the university
-  unilogo: "../template/img/unimi.svg",
+  unilogo: "img/unimi.svg",
   // Faculty, departament and course in which you are enrolled
   faculty: [Facoltà di Scienze e Tecnologie],
   department: [Dipartimento di Informatica \ Giovanni degli Antoni],
   cdl: [Corsi di Laurea Triennale in \ Corso di Laurea],
   // Title to be printed on the thesis
-  printedtitle: {
-    let typst = {
-      set text(
-        size: 1.05em,
-        weight: "bold",
-        fill: rgb("#239dad"),
-      )
-      box({
-        text("t")
-        text("y")
-        h(0.035em)
-        text("p")
-        h(-0.025em)
-        text("s")
-        h(-0.015em)
-        text("t")
-      })
-    }
-    [Un template realizzato \ con #typst]
-  },
+  printedtitle: "",
   // Title to be left on metadata
   title: "Un template meraviglioso",
   // Type of thesis
@@ -54,9 +35,6 @@
     name: "Nome Cognome",
     serial_number: "123456",
   ),
-  // Dedication, acknowledgements
-  dedication: "",
-  acknowledgements: none,
   // Language of the thesis. This will change some prefixex (see utils/locale.yaml)
   language: "it",
   // Supervisors and cosupervisors
@@ -206,6 +184,10 @@
 
   // v(0.0168 * paper.height)
   v(1fr)
+
+  if (printedtitle == "") {
+    printedtitle = title
+  }
 
   // thesis printed title
   align(

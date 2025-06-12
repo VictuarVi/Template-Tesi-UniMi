@@ -52,8 +52,8 @@ Sintatticamente, questo richiede di inserire delle label `<mia_label>` dopo una 
 <ritorni-a-capo>
 I ritorni a capo in Typst~possono essere effettuati in due modi: con la sintassi `\` o con una doppia pressione del tasto di ritorno a capo. In generale, la soluzione corretta è la seconda, che equivale a usare il tasto Enter in Word. Il Backslash, che corrisponde a Shift+Enter in Word, crea una nuova riga senza interruzione del paragrafo. Questo va usato solo in casi molto specifici, come nella frase seguente.
 
-Il sito web ufficiale dell'Università degli Studi di Milano è: \
-#link("https://www.unimi.it");.
+Il sito web ufficiale dell'Università degli Studi di Milano è:
+#align(center, link("https://www.unimi.it"))
 
 In questo template, un nuovo paragrafo (dopo un doppio a capo) crea un rientro della prima riga. Questo viene fatto impostando il parametro `first-line-indent` di `par` al valore `1.2em`. Non c'è nulla di male nel rientro, ma se proprio lo si vuole evitare la soluzione è rimuovere il parametro appena citato.
 
@@ -101,17 +101,23 @@ Si evitino espressioni del tipo "come visibile nella figura seguente" in favore 
 <sec:bibtex>
 === Generalità
 <generalità-1>
-Esistono più modi per inserire una bibliografia in Typst. Si consiglia fortemente l'utilizzo del sistema. Questo consente di aggiungere, rimuovere e modificare voci di bibliografia in maniera efficiente, di formattarle, di riordinarle a piacere e aggiornare automaticamente i corrispondenti riferimenti nel testo, ecc.
+Esistono più modi per inserire una bibliografia in Typst: o quello di BibLaTeX @biblatex oppure Hayagriva @hayagriva. Entrambi consentono di aggiungere, rimuovere e modificare voci di bibliografia in maniera efficiente, di formattarle, di riordinarle a piacere e aggiornare automaticamente i corrispondenti riferimenti nel testo, ecc.
 
-Una guida introduttiva e completa è "Tame the BeaST".#footnote[Accessibile da #link("http://www.tug.org/interest.html");] In estrema sintesi, i passi per gestire una bibliografia tramite sono essenzialmente tre.
+La differenza è che il primo è lo standard che arriva da LaTeX -- e quindi tutto ciò che ne consegue: ampio supporto, letto ed esportato ovunque -- mentre il secondo è l'approccio alla Typst, quindi molto più agile, intuitivo; ma in quanto più moderno non si aspetti lo stesso supporto.
 
-+ Salvare i riferimenti bibliografici come entry di uno o più file con l'estensione .bib (si veda ad esempio il file `bibliografia.bib`, parte di questo template). Gli entry sono scritti in un formato specifico, in particolare ogni entry ha una propria etichetta testuale che lo identifica univocamente.
+/ Per BibLaTeX : Una guida introduttiva e completa è "Tame the BeaST".#footnote[Accessibile da #link("http://www.tug.org/interest.html");] In estrema sintesi, i passi per gestire una bibliografia tramite sono essenzialmente tre.
+
++ Salvare i riferimenti bibliografici come entry di uno o più file con l'estensione `.bib` (si veda ad esempio il file `bibliografia.bib`, parte di questo template). Gli entry sono scritti in un formato specifico, in particolare ogni entry ha una propria etichetta testuale che lo identifica univocamente
 
 + Creare la bibliografia alla fine del documento o dove desiderato, usando il comando `#bibliography("file.bib")`. È possibile inoltre specificare uno stile bibliografico modificando il campo `style` del comando precedente.
 
 + All'interno del testo, riferirsi a una voce di bibliografia tramite il comando `@etichetta_entry`. Si noti che una voce bibliografica non viene inclusa in bibliografia in assenza di una citazione all'interno del testo (coerentemente con quanto discusso nella sezione~@sec:biblio).
 
-È consigliabile cominciare a costruire la propria bibliografia in formato bib a mano a mano che si analizza lo stato dell'arte, invece che rimandare alla stesura finale della tesi.
+Tutte queste considerazioni si applicano anche ad Hayagriva.
+
+La scelta del sistema ricade sulla fonte della bibliografia: se è principalmente da scrivere _a mano_, allora conviene sicuramente Hayagriva perché è molto più semplice; altrimenti, se la bibliografia viene recuperata (o generata) da fonti online è meglio BibLaTeX perché è un formato standard e supportato da qualsiasi software.
+
+È consigliabile infine cominciare a costruire la propria bibliografia a mano a mano che si analizza lo stato dell'arte, invece che rimandare alla stesura finale della tesi.
 
 === Strumenti
 <strumenti>

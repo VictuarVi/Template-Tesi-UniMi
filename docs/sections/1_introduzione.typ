@@ -13,6 +13,44 @@ Il template LaTeX è stato sviluppato, negli anni, dai membri del Laboratorio di
 
 È stato principalmente inteso per gli elaborati finali del corso di laurea triennale in Informatica Musicale, e poi esteso anche agli altri CdL del Dipartimento di Informatica, ma può essere riadattato anche per altri corsi cambiando i metadati nel preambolo. Nel resto del documento, dove non specificato, useremo il termine #emph[tesi] nella sua accezione generica che include anche gli elaborati triennali.
 
+=== Impostazioni
+
+Per quanto riguarda Typst, è possibile impostare i seguenti parametri:
+```typ
+#show: progetto.with(
+  university: "Università degli Studi di Milano",
+  unilogo: "../template/img/unimi.svg",
+  faculty: [Facoltà di Scienze e Tecnologie],
+  department: [
+    Dipartimento di Informatica \
+    Giovanni degli Antoni
+  ],
+  cdl: [
+    Corsi di Laurea Triennale in \
+    Corso di Laurea
+  ],
+  printedtitle: "",
+  title: "Un template meraviglioso",
+  typeofthesis: "Elaborato Finale",
+  author: (
+    name: "Nome Cognome",
+    serial_number: "123456",
+  ),
+  language: "it",
+  supervisors: (
+    "Prof. Enrico Fermi",
+  ),
+  cosupervisors: (
+    "Prof. Ezio Auditore da Firenze",
+    "Prof. Francesco Bianchi",
+  ),
+  academicyear: ""
+)
+```
+(questi listati sono gli argomenti default). Tutti gli attributi sono sufficientemente chiari -- tranne `printedtitle`:
+- Esso il titolo che appare _al frontespizio_, nel PDF
+- `title` invece è quello che appare _nei metadata_ del file -- se `printedtitle` è vuoto, allora è uguale a `title`
+
 == I contenuti
 <sec:contenuti>
 Alcune volte, le tesi possono avere forti connotazioni interdisciplinari. È però fondamentale ricordarsi che si tratta di lavori in area informatica, e questo aspetto deve emergere con chiarezza. Anche gli elaborati di contenuto più umanistico devono mostrare rigore scientifico e uno sforzo di formalizzazione nel loro svolgimento. In concreto, sono molto apprezzati schemi, tabelle, formalismi grafici e/o matematici, presenza di parti significative di codice (ove possibile).
@@ -41,7 +79,7 @@ La scelta di come strutturare un lavoro esteso, quale un elaborato finale o una 
 
 #figure(
   image(
-    "../../template/img/unimi.svg",
+    "../../src/img/unimi.svg",
     width: 25%,
   ),
   caption: [
