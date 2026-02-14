@@ -461,5 +461,5 @@
   localization.at(text.lang).lab_prefix + " "
   laboratories.at(name).name + linebreak()
   // laboratories.at(name).company + linebreak()
-  link("", laboratories.at(name).url)
+  link(laboratories.at(name).url)
 }
