@@ -9,7 +9,7 @@ This template is the conversion from one of the many templates used for UniMi th
 </p>
 
 > [!TIP]
-> See the [instructions](https://github.com/VictuarVi/Template-Tesi-UniMi/blob/410379440c495c0b10f4c968bf9686d4cada0869/docs/instructions.pdf) for more information about the template (in Italian).
+> See the [instructions](docs/instructions.pdf) for more information about the template (in Italian).
 
 ## Usage 🚀
 
@@ -22,7 +22,7 @@ typst c main.typ --pdf-standard a-3b
 The following excerpt is the canonical example of how the template can be structured:
 
 ```typ
-#import "@preview/simple-unimi-thesis:0.1.0": *
+#import "@preview/simple-unimi-thesis:0.1.1": *
 
 #show: project.with(
   language: "en",

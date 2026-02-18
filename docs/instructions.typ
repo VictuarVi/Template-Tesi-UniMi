@@ -1,4 +1,4 @@
-#import "@preview/simple-unimi-thesis:0.1.0": *
+#import "@preview/simple-unimi-thesis:0.1.1": *
 
 #show: project.with(
   printedtitle: {
