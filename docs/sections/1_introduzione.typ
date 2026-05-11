@@ -17,9 +17,8 @@ Il template LaTeX è stato sviluppato, negli anni, dai membri del Laboratorio di
 
 Per quanto riguarda Typst, è possibile impostare i seguenti parametri:
 ```typ
-#show: progetto.with(
-  university: "Università degli Studi di Milano",
-  unilogo: "../template/img/unimi.svg",
+#show: unimi-thesis.with(
+  // unilogo: image("path/to/thesis/logo") // logo della tesi
   faculty: [Facoltà di Scienze e Tecnologie],
   department: [
     Dipartimento di Informatica \
@@ -29,13 +28,11 @@ Per quanto riguarda Typst, è possibile impostare i seguenti parametri:
     Corsi di Laurea Triennale in \
     Corso di Laurea
   ],
-  printedtitle: "",
+  // printed-title: "", // se si vuole un titolo stampato diverso da quello nei metadata
   title: "Un template meraviglioso",
-  typeofthesis: "Elaborato Finale",
-  author: (
-    name: "Nome Cognome",
-    serial_number: "123456",
-  ),
+  type-of-thesis: "Elaborato Finale",
+  author: "Nome Cognome",
+  serial-number: "123456",
   language: "it",
   supervisors: (
     "Prof. Enrico Fermi",
@@ -44,12 +41,11 @@ Per quanto riguarda Typst, è possibile impostare i seguenti parametri:
     "Prof. Ezio Auditore da Firenze",
     "Prof. Francesco Bianchi",
   ),
-  academicyear: ""
 )
 ```
-(questi listati sono gli argomenti default). Tutti gli attributi sono sufficientemente chiari -- tranne `printedtitle`:
+(questi listati sono gli argomenti default). Tutti gli attributi sono sufficientemente chiari -- tranne `printed-title`:
 - Esso il titolo che appare _al frontespizio_, nel PDF
-- `title` invece è quello che appare _nei metadata_ del file -- se `printedtitle` è vuoto, allora è uguale a `title`
+- `title` invece è quello che appare _nei metadata_ del file -- se `printed-title` è vuoto, allora è uguale a `title`
 
 == I contenuti
 <sec:contenuti>
@@ -79,7 +75,7 @@ La scelta di come strutturare un lavoro esteso, quale un elaborato finale o una 
 
 #figure(
   image(
-    "../../src/img/unimi.svg",
+    "../../src/img/unimi-black.svg",
     width: 25%,
   ),
   caption: [

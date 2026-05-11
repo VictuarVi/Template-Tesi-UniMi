@@ -2,7 +2,7 @@ it:
   supervisor: Relatore
   cosupervisor: Correlatore
   type_of_thesis: di
-  serial_number: Matr. Nr.
+  serial-number: Matr. Nr.
   academic_year: Anno Accademico
   acknowledgements: Riconoscimenti
   chapter: Capitolo
@@ -13,7 +13,7 @@ en:
   supervisor: Supervisor
   cosupervisor: Cosupervisor
   type_of_thesis: of
-  serial_number: Matr. No.
+  serial-number: Matr. No.
   academic_year: Academic Year
   acknowledgements: Acknowledgments
   chapter: Chapter

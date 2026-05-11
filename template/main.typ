@@ -1,10 +1,26 @@
-#import "@preview/simple-unimi-thesis:0.1.1": *
+#import "@preview/simple-unimi-thesis:0.2.0": *
 
-#show: project
+#show: unimi-thesis.with(
+  title: "Thesis title",
+  author: "Name Surname",
+  serial-number: "123456",
+  supervisors: (
+    "Prof. Supervisor First",
+  ),
+  cosupervisors: (
+    "Prof. Cosupervisor First",
+  ),
+  type-of-thesis: "Elaborato Finale",
+  academic-year: [2026 --- 2027],
+)
 
 #show: frontmatter
 
 // dedication
+
+#dedication[
+  #lorem(20)
+]
 
 // acknowledgements
 
@@ -41,7 +57,4 @@
 // bibliography
 
 // associated laboratory
-
-// if the laboratory you want to cite is missing:
-#let missinglab = yaml("myoverride.yml")
-#closingpage("mylab", laboratories: missinglab)
+#closingpage()

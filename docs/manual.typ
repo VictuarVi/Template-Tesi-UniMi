@@ -1,7 +1,7 @@
-#import "@preview/simple-unimi-thesis:0.1.1": *
+#import "@preview/simple-unimi-thesis:0.2.0": *
 
-#show: project.with(
-  printedtitle: {
+#show: unimi-thesis.with(
+  printed-title: {
     let typst = {
       set text(
         size: 1.05em,
@@ -50,6 +50,6 @@
 
 #show: backmatter
 
-#bibliography(full: true, "bibliografia.bib")
+#bibliography(full: true, "bibliography.bib")
 
-#closingpage("adaptlab")
+#closingpage(..laboratories.adaptlab)
