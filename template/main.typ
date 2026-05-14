@@ -1,17 +1,20 @@
 #import "@preview/simple-unimi-thesis:0.2.0": *
 
 #show: unimi-thesis.with(
-  title: "Thesis title",
-  author: "Name Surname",
+  title: "Titolo della Tesi",
+  author: "Nome Cognome",
   serial-number: "123456",
+  faculty: [Facoltà di Scienze e Tecnologie],
+  department: [Dipartimento di Informatica \ Giovanni degli Antoni],
+  course: [Corso di Laurea Triennale in \ Corso di Laurea],
   supervisors: (
-    "Prof. Supervisor First",
+    "Prof. Primo Relatore",
   ),
   cosupervisors: (
-    "Prof. Cosupervisor First",
+    "Prof. Primo Correlatore",
   ),
   type-of-thesis: "Elaborato Finale",
-  academic-year: [2026 --- 2027],
+  // academic-year: [2026 --- 2027],
 )
 
 #show: frontmatter
@@ -20,13 +23,15 @@
 
 #dedication[
   #lorem(20)
+
+  --- Anonimo
 ]
 
 // acknowledgements
 
 #show: acknowledgements
 
-= Acknowledgements
+= Riconoscimenti
 
 #lorem(100)
 
@@ -36,11 +41,15 @@
 
 // main section of the thesis
 
-= First chapter
+= Primo capitolo
 
 #lorem(100)
 
-= Second chapter
+#lorem(100)
+
+= Secondo capitolo
+
+#lorem(100)
 
 #lorem(100)
 
@@ -48,7 +57,7 @@
 
 #show: appendix
 
-= First appendix
+= Appendice
 
 #lorem(100)
 

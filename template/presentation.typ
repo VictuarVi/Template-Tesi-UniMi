@@ -3,33 +3,35 @@
 
 #show: unimi-presentation.with(
   config-info(
-    title: [Title of the presentation],
-    course: [Degree course],
-    author: [Name Surname],
+    title: [Titolo della Presentazione],
+    course: [Corso di Laurea],
+    author: [Nome Cognome],
     serial-number: [123456],
     date: datetime.today(),
   ),
 )
 
+#set text(lang: "it")
+
 #title-slide()
 
-= First section
+= Prima sezione
 
-== First slide
-
-#lorem(20)
-
-#lorem(20)
-
-== Second slide
+== Prima diapositiva
 
 #lorem(20)
 
 #lorem(20)
 
-= Second section
+== Seconda diapositiva
 
-== First slide
+#lorem(20)
+
+#lorem(20)
+
+= Seconda sezione
+
+== Terza diapositiva
 
 #columns[
   #for i in range(0, 6) {
@@ -37,4 +39,4 @@
   }
 ]
 
-#focus-slide("Thanks for listening.")
+#focus-slide("Grazie per l'ascolto.")

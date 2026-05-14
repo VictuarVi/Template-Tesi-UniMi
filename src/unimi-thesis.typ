@@ -13,9 +13,13 @@
   Huge: 2.488em,
 )
 
-#let document-state = state("init", "TITLE_PAGE")
+/// The current document section e.g. title page, mainmatter...).
+/// -> state
+#let _document-state = state("init", "TITLE_PAGE")
 
-#let localization = yaml("utils/locale.yaml")
+/// Localization dictionary.
+/// -> dict
+#let _localization = yaml("utils/locale.yaml")
 
 /// Get the lvl. 1 heading in the current page. Returns an empty array if none are found.
 /// -> array
@@ -23,7 +27,7 @@
   here().page() == h1.location().page()
 ))
 
-/// Main styling function.
+/// The main thesis formatting function.
 /// -> content
 #let unimi-thesis(
   /// Name of the university.
@@ -31,7 +35,7 @@
   university: "Università degli Studi di Milano",
   /// University logo.
   /// -> image
-  unilogo: rect(height: 30mm, align(center + horizon, "UNIVERSITY\nLOGO\nPLACEHOLDER")),
+  unilogo: image(height: 30mm, "img/unimi-black.svg"),
   /// Name of the faculty (or school).
   /// -> string | content
   faculty: [Facoltà di Scienze e Tecnologie],
@@ -40,61 +44,52 @@
   department: [Dipartimento di Informatica \ Giovanni degli Antoni],
   /// Degree course.
   /// -> string | content
-  cdl: [Corsi di Laurea Triennale in \ Corso di Laurea],
-  /// Printed title of the thesis, that is the one what will appear in the document.
+  course: [Corso di Laurea Triennale in \ Corso di Laurea],
+  /// Title of the thesis.
   /// -> string | content
-  printed-title: "",
-  /// Metadata title.
-  /// -> string
-  title: "Un template meraviglioso",
+  title: "Titolo della Tesi",
+  /// Title in the metadata. Defaults to the title.
+  /// -> string,
+  title-metadata: "",
   /// Type of thesis
   /// -> string
   type-of-thesis: "Elaborato Finale",
   /// Author name and surname.
   /// -> string
-  author: "Nome Cognome",
+  author: "",
   /// Author serial number.
   /// -> string
   serial-number: "123456",
-  /// Language of the thesis. This will change some prefixes (see `locale.yaml`).
-  /// -> string
+  /// Language of the thesis.
+  /// -> "it" | "en"
   language: "it",
   /// Supervisor(s).
-  /// -> array
-  supervisors: (
-    "Prof. Enrico Fermi",
-  ),
+  /// -> string | array
+  supervisors: (),
   /// Cosupervisor(s).
-  /// -> array
-  cosupervisors: (
-    "Prof. Ezio Auditore da Firenze",
-    "Prof. Francesco Bianchi",
-  ),
-  /// The academic year of the graduation. If empty, defaults to the current year.
+  /// -> string | array
+  cosupervisors: (),
+  /// The academic year of the graduation.
   /// -> content | string
-  academic-year: "",
+  academic-year: [2026 --- 2027],
   body,
 ) = {
   set document(
-    title: title,
+    title: if title-metadata == "" { title } else { title-metadata },
     author: author,
   )
 
-  set text(lang: language)
+  set text(
+    font: "Libertinus Serif",
+    lang: language,
+  )
   set par(
     justify: true,
     spacing: 0.8em,
     first-line-indent: 1.2em,
   )
 
-  let paper = (
-    height: 24cm,
-    width: 17cm,
-  )
-
   set page(
-    // height: 24cm,
-    // width: 17cm,
     paper: "a4",
     margin: (
       top: 3cm,
@@ -103,15 +98,15 @@
       right: 2.5cm,
     ),
     numbering: "i",
-    header-ascent: 1.03cm, // TODO is this actually correct?
+    header-ascent: 1.03cm,
     header: context {
       if (
-        (document-state.get() in ("TITLE_PAGE", "FRONTMATTER", "ACKNOWLEDGEMENTS", "BACKMATTER"))
+        (_document-state.get() in ("TITLE_PAGE", "FRONTMATTER", "ACKNOWLEDGEMENTS", "BACKMATTER"))
           // if there is a lvl 1 heading on the same page, the header must be empty
           or _h1-current-page().len() != 0
       ) {
         none
-      } else if (document-state.get() in ("MAINMATTER", "APPENDIX")) {
+      } else if (_document-state.get() in ("MAINMATTER", "APPENDIX")) {
         let heading-count = counter(heading).display(
           (..args) => numbering(
             heading.numbering,
@@ -119,8 +114,8 @@
           ),
         )
 
-        let prefix = if document-state.get() == "MAINMATTER" { localization.at(text.lang).chapter } else {
-          localization.at(text.lang).appendix
+        let prefix = if _document-state.get() == "MAINMATTER" { _localization.at(text.lang).chapter } else {
+          _localization.at(text.lang).appendix
         }
 
         // if there is no level 1 heading on the current page, print the last lvl 1 heading
@@ -150,47 +145,40 @@
 
   align(
     center,
-    {
+    context {
       text(size: _sizes.LARGE, university) + linebreak()
       upper(faculty)
-      v(0.0135 * paper.height)
+      v(0.0135 * page.height)
       upper(department)
-      v(0.02 * paper.height)
+      v(0.02 * page.height)
       unilogo
-      v(0.0135 * paper.height)
-      upper(cdl)
+      v(0.0135 * page.height)
+      upper(course)
     },
   )
 
-  // v(0.0168 * paper.height)
+  // v(0.0168 * page.height)
   v(1fr)
-
-  if (printed-title == "") {
-    printed-title = title
-  }
 
   align(
     center,
-    text(size: _sizes.Large, upper(printed-title)),
+    text(size: _sizes.Large, upper(title)),
   )
 
-  // v(0.0673 * paper.height)
+  // v(0.0673 * page.height)
   v(1fr)
 
   set text(size: _sizes.large)
 
-  // (co)supervisors(s)
   align(
     left,
     context {
       let arr = ()
       for name in supervisors {
-        let tmp = (localization.at(text.lang).supervisor + ":", name)
-        arr.push(tmp)
+        arr.push((_localization.at(text.lang).supervisor + ":", name))
       }
       for name in cosupervisors {
-        let tmp = (localization.at(text.lang).cosupervisor + ":", name)
-        arr.push(tmp)
+        arr.push((_localization.at(text.lang).cosupervisor + ":", name))
       }
       grid(
         columns: 2,
@@ -202,7 +190,7 @@
     },
   )
 
-  v(0.0168 * paper.height)
+  context { v(0.0168 * page.height) }
   // v(1fr)
 
   align(
@@ -211,10 +199,10 @@
       context {
         set align(left)
         type-of-thesis + " "
-        localization.at(text.lang).type_of_thesis
+        _localization.at(text.lang).type_of_thesis
         ":" + linebreak()
         author + linebreak()
-        localization.at(text.lang).serial-number + " "
+        _localization.at(text.lang).serial-number + " "
         serial-number
       }
     }),
@@ -223,17 +211,11 @@
   // v(0.0337 * paper.height)
   v(1fr)
 
-  // default academic year == current year
-  if (academic-year == "") {
-    let current_year = datetime.today().year()
-    academic-year = str(current_year) + [ -- ] + str(current_year + 1)
-  }
-
   align(
     center,
     context {
       smallcaps({
-        localization.at(text.lang).academic_year
+        _localization.at(text.lang).academic_year
         " "
         academic-year
       })
@@ -253,10 +235,10 @@
     pagebreak()
     v(3cm)
     if (it.numbering != none) {
-      if (document-state.get() == "MAINMATTER") {
-        localization.at(text.lang).chapter
-      } else if (document-state.get() == "APPENDIX") {
-        localization.at(text.lang).appendix
+      if (_document-state.get() == "MAINMATTER") {
+        _localization.at(text.lang).chapter
+      } else if (_document-state.get() == "APPENDIX") {
+        _localization.at(text.lang).appendix
       }
       " "
       counter(selector(heading)).display()
@@ -266,7 +248,6 @@
     it.body
   }
 
-  // heading sizes
   show heading: it => {
     if (it.level == 1) {
       text(size: _sizes.Large, it)
@@ -306,21 +287,6 @@
     it
   }
 
-  show raw.where(block: true): it => {
-    set text(font: "JetBrainsMono NF", weight: "light")
-    align(
-      center,
-      block(
-        // width: 100%,
-        fill: rgb("#ebf1f5"),
-        inset: 10pt,
-        stroke: rgb("#9cc9e7"),
-        // radius: 4pt,
-        align(center, it),
-      ),
-    )
-  }
-
   show figure.where(kind: "toc"): it => {
     align(start, it.body + v(1em))
   }
@@ -335,7 +301,7 @@
 /// ```typc numbering: none``` for headings.
 /// -> content
 #let frontmatter(body) = {
-  document-state.update("FRONTMATTER")
+  _document-state.update("FRONTMATTER")
   set heading(numbering: none)
 
   body
@@ -344,7 +310,7 @@
 /// Dedication sections. Sets the text alignment to right and its style to italic.
 /// -> content
 #let dedication(body) = {
-  document-state.update("DEDICATION")
+  _document-state.update("DEDICATION")
   pagebreak()
   set align(right)
   set text(style: "italic")
@@ -355,7 +321,7 @@
 /// Acknowledgements section. It sets page numbering to `"i"`.
 /// -> content
 #let acknowledgements(body) = {
-  document-state.update("ACKNOWLEDGEMENTS")
+  _document-state.update("ACKNOWLEDGEMENTS")
   set page(numbering: "i")
 
   body
@@ -365,14 +331,14 @@
 /// to `"1"`, heading numbering to ```typc "1.1"``` and resets the page counter.
 /// -> content
 #let mainmatter(body) = {
-  document-state.update("MAINMATTER")
+  _document-state.update("MAINMATTER")
   set page(numbering: "1")
   set heading(numbering: "1.1")
   counter(page).update(1)
 
   // Workaround to print links in monospaced font
   // after the TOC because the outline entries are links
-  show link: set text(font: "JetBrainsMono NF", size: 0.8em)
+  // show link: set text(font: "JetBrainsMono NF", size: 0.8em)
 
   body
 }
@@ -381,7 +347,7 @@
 /// to ```typc"A.1"``` and resets their counter.
 /// -> content
 #let appendix(body) = context {
-  document-state.update("APPENDIX")
+  _document-state.update("APPENDIX")
   counter(heading).update(0)
   set heading(numbering: "A.1")
 
@@ -392,7 +358,7 @@
 /// to ```typc none``` and changes the footer format.
 /// -> content
 #let backmatter(body) = context {
-  document-state.update("BACKMATTER")
+  _document-state.update("BACKMATTER")
   set heading(numbering: none)
   set page(footer: align(center, counter(page).display()))
 
@@ -419,17 +385,20 @@
     .or(heading.where(outlined: true))
 )
 
-/// Custom table of contents. It also displays ```typc outline()```..
+/// Custom table of contents. It displays ```typc outline()``` as if it were a normal
+/// lvl. 1 heading.
 /// -> content
 #let toc = context {
   set page(footer: align(center, counter(page).display()))
   outline(
-    title: list(localization.at(text.lang).toc),
+    title: list(_localization.at(text.lang).toc),
     indent: 1em,
     target: target,
   )
 }
 
+/// Ready-made laboratories.
+/// -> dictionary
 #let laboratories = yaml("utils/laboratories.yaml")
 
 /// Display the laboratory involved in the thesis development.
@@ -466,7 +435,7 @@
     }
   }
 
-  localization.at(text.lang).lab_prefix + " "
+  _localization.at(text.lang).lab_prefix + " "
   name + linebreak()
   // laboratories.at(name).company + linebreak()
   link(url)

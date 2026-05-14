@@ -1,17 +1,12 @@
 # simple-unimi-thesis 🎓
 
-A simple [Typst](https://typst.app) thesis template for the University of Milan (UniMi). There are many templates available: this package has been built upon the [LIM LaTeX template](https://www.overleaf.com/project/641879675262cde2a670826b) (in Italian).
+A simple [Typst](https://typst.app) thesis template for the University of Milan (UniMi). There are many templates available: this package has been built upon the [LIM LaTeX template](https://www.overleaf.com/project/641879675262cde2a670826b) (in Italian); while the the presentatation is based on [this](https://www.overleaf.com/latex/templates/la-statale-universita-degli-studi-di-milano-unimi-presentation/ykkwvfdbqydr) LaTeX template. Both are licensed under the CC BY 4.0 license.
 
-The presentatation is based on [this](https://www.overleaf.com/latex/templates/la-statale-universita-degli-studi-di-milano-unimi-presentation/ykkwvfdbqydr) LaTeX template. It is licensed under the CC BY 4.0 license.
-
-See the [manual](docs/manual.pdf) for more information about the template (in Italian). Despite the base template being in Italian, the package supports English as well.
+See the [manual](docs/manual.pdf) for more information about the template (in Italian). Despite it being in Italian, the package supports English as well.
 
 All the logos and images provided are property of the University of Milan (see [more](https://www.unimi.it/en/university/la-statale/communication/visual-identity)). To download other logos, see [this](https://work.unimi.it/servizi/comunicare/12902.htm) and [this](https://work.unimi.it/servizi/comunicare/37094.htm).
 
-You'll have to download on your font the two following fonts:
-
-- [JetBrainsMono NF](https://fonts.google.com/specimen/JetBrains+Mono), which is the default monospace font for the thesis
-- [Carlito](https://fonts.google.com/specimen/Carlito), which is the default font for the presentation
+You'll have to download on your own the [Carlito](https://fonts.google.com/specimen/Carlito) font, which is the default for the presentation.
 
 ## Preview ✨
 

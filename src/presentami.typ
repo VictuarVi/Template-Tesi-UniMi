@@ -1,7 +1,9 @@
 #import "@preview/touying:0.7.3": *
 #import "statale-colors.typ" as palette
 
-#let localization = yaml("utils/locale.yaml")
+/// Localization dictionary.
+/// -> dict
+#let _localization = yaml("utils/locale.yaml")
 
 /// Custom header.
 /// -> content
@@ -31,7 +33,7 @@
           text(
             weight: "bold",
             size: 1.8em,
-            localization.at(text.lang).toc,
+            _localization.at(text.lang).toc,
           )
         }
         text(
@@ -246,7 +248,7 @@
   ..args,
   body,
 ) = touying-slide-wrapper(self => {
-  let main-body = {
+  let body = {
     show outline.entry: it => {
       link(
         it.element.location(),
@@ -279,7 +281,7 @@
       fill: self.colors.primary,
     ),
   )
-  touying-slide(self: self, main-body)
+  touying-slide(self: self, body)
 })
 
 /// Main presentation function.

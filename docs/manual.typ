@@ -1,7 +1,7 @@
 #import "@preview/simple-unimi-thesis:0.2.0": *
 
 #show: unimi-thesis.with(
-  printed-title: {
+  title: {
     let typst = {
       set text(
         size: 1.05em,
