@@ -1,9 +1,8 @@
 #import "@preview/simple-unimi-thesis:0.2.0": *
-#import "@preview/touying:0.7.3": *
 
 #show: unimi-presentation.with(
   config-info(
-    title: [Titolo della Presentazione],
+    title: [Titolo della presentazione],
     course: [Corso di Laurea],
     author: [Nome Cognome],
     serial-number: [123456],

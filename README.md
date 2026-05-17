@@ -1,8 +1,14 @@
 # simple-unimi-thesis 🎓
 
-A simple [Typst](https://typst.app) thesis template for the University of Milan (UniMi). There are many templates available: this package has been built upon the [LIM LaTeX template](https://www.overleaf.com/project/641879675262cde2a670826b) (in Italian); while the the presentatation is based on [this](https://www.overleaf.com/latex/templates/la-statale-universita-degli-studi-di-milano-unimi-presentation/ykkwvfdbqydr) LaTeX template. Both are licensed under the CC BY 4.0 license.
+![Version](https://img.shields.io/badge/package-v0.2.0-239dad?logo=typst)
+[![Github Repo](https://img.shields.io/badge/github-repo-blue?logo=github)](https://github.com/VictuarVi/Template-Tesi-UniMi)
+![License](https://img.shields.io/badge/license-GPLv3-green)
+[![Thesis manual](https://img.shields.io/badge/docs-thesis-red?logo=readthedocs)](docs/manual.pdf?raw=true)
+[![Presentation manual](https://img.shields.io/badge/docs-presentation-red?logo=readthedocs)](docs/presentation-manual.pdf?raw=true)
 
-See the [manual](docs/manual.pdf) for more information about the template (in Italian). Despite it being in Italian, the package supports English as well.
+A simple [Typst](https://typst.app) thesis template for the University of Milan (UniMi). There are many templates available: this package has been built upon the [LIM LaTeX template](https://www.overleaf.com/project/641879675262cde2a670826b) (in Italian); while the the presentation is based on [this](https://www.overleaf.com/latex/templates/la-statale-universita-degli-studi-di-milano-unimi-presentation/ykkwvfdbqydr) LaTeX template. Both are licensed under the CC BY 4.0 license.
+
+See the [this](docs/manual.pdf) for more information about the thesis (in Italian) and [this](docs/presentation-manual.pdf) for the presentation. Despite the manuals being in Italian, the package supports English as well.
 
 All the logos and images provided are property of the University of Milan (see [more](https://www.unimi.it/en/university/la-statale/communication/visual-identity)). To download other logos, see [this](https://work.unimi.it/servizi/comunicare/12902.htm) and [this](https://work.unimi.it/servizi/comunicare/37094.htm).
 

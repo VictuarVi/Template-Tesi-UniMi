@@ -44,7 +44,7 @@
   department: [Dipartimento di Informatica \ Giovanni degli Antoni],
   /// Degree course.
   /// -> string | content
-  course: [Corso di Laurea Triennale in \ Corso di Laurea],
+  course: [Corso di Laurea Triennale in \ Informatica],
   /// Title of the thesis.
   /// -> string | content
   title: "Titolo della Tesi",
@@ -368,7 +368,7 @@
 // Table of Contents settings
 
 // make the outline appear in the outline
-#let list = figure.with(
+#let _toc-figure = figure.with(
   kind: "toc",
   numbering: none,
   supplement: none,
@@ -376,7 +376,7 @@
   caption: [],
 )
 
-#let target = (
+#let _target = (
   figure
     .where(
       kind: "toc",
@@ -391,9 +391,9 @@
 #let toc = context {
   set page(footer: align(center, counter(page).display()))
   outline(
-    title: list(_localization.at(text.lang).toc),
+    title: _toc-figure(_localization.at(text.lang).toc),
     indent: 1em,
-    target: target,
+    target: _target,
   )
 }
 

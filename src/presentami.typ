@@ -164,7 +164,7 @@
       if info.author != none {
         strong(info.author)
       }
-      if info.author != none {
+      if info.serial-number != none {
         " (" + info.serial-number + ")"
       }
     })
@@ -310,6 +310,13 @@
     ),
     config-colors(
       primary: palette.maincolor,
+    ),
+    config-info(
+      title: none,
+      course: none,
+      author: none,
+      serial-number: none,
+      date: datetime.today(),
     ),
     ..args,
   )

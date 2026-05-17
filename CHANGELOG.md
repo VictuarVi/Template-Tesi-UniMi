@@ -2,11 +2,10 @@
 
 ## Unreleased
 
-- Added presentation manual
-
 ## 0.2.0 - TBA
 
 - Added presentation
+- Added presentation manual
 - Added proper documentation
 - Correctly aligned arguments
 - Updated manual
