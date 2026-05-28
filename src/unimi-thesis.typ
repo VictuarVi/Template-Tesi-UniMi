@@ -38,19 +38,19 @@
   unilogo: image(height: 30mm, "img/unimi-black.svg"),
   /// Name of the faculty (or school).
   /// -> string | content
-  faculty: [Facoltà di Scienze e Tecnologie],
+  faculty: none,
   /// Department of your faculty.
   /// -> string | content
-  department: [Dipartimento di Informatica \ Giovanni degli Antoni],
+  department: none,
   /// Degree course.
   /// -> string | content
-  course: [Corso di Laurea Triennale in \ Informatica],
+  course: none,
   /// Title of the thesis.
   /// -> string | content
   title: "Titolo della Tesi",
   /// Title in the metadata. Defaults to the title.
   /// -> string,
-  title-metadata: "",
+  title-metadata: none,
   /// Type of thesis
   /// -> string
   type-of-thesis: "Elaborato Finale",
@@ -59,7 +59,7 @@
   author: "",
   /// Author serial number.
   /// -> string
-  serial-number: "123456",
+  serial-number: none,
   /// Language of the thesis.
   /// -> "it" | "en"
   language: "it",
@@ -133,94 +133,101 @@
         h(1fr) + counter(page).display()
       }
     },
-    footer: context {
-      // if there is a lvl 1 heading on the same page, the footer must display the page numbering at the bottom center
-      if (_h1-current-page().len() != 0) {
-        align(center, counter(page).display())
-      }
-    },
+    footer: none,
   )
 
   // TITLE PAGE
 
-  align(
-    center,
-    context {
-      text(size: _sizes.LARGE, university) + linebreak()
-      upper(faculty)
-      v(0.0135 * page.height)
-      upper(department)
-      v(0.02 * page.height)
-      unilogo
-      v(0.0135 * page.height)
-      upper(course)
-    },
-  )
-
-  // v(0.0168 * page.height)
-  v(1fr)
-
-  align(
-    center,
-    text(size: _sizes.Large, upper(title)),
-  )
-
-  // v(0.0673 * page.height)
-  v(1fr)
-
-  set text(size: _sizes.large)
-
-  align(
-    left,
-    context {
-      let arr = ()
-      for name in supervisors {
-        arr.push((_localization.at(text.lang).supervisor + ":", name))
-      }
-      for name in cosupervisors {
-        arr.push((_localization.at(text.lang).cosupervisor + ":", name))
-      }
-      grid(
-        columns: 2,
-        align: left,
-        column-gutter: 0.5cm,
-        row-gutter: 0.2cm,
-        ..arr.flatten()
-      )
-    },
-  )
-
-  context { v(0.0168 * page.height) }
-  // v(1fr)
-
-  align(
-    right,
-    box({
+  {
+    align(
+      center,
       context {
-        set align(left)
-        type-of-thesis + " "
-        _localization.at(text.lang).type_of_thesis
-        ":" + linebreak()
-        author + linebreak()
-        _localization.at(text.lang).serial-number + " "
-        serial-number
-      }
-    }),
-  )
+        text(size: _sizes.LARGE, university) + linebreak()
+        upper(faculty)
+        v(0.0135 * page.height)
+        upper(department)
+        v(0.02 * page.height)
+        unilogo
+        v(0.0135 * page.height)
+        upper(course)
+      },
+    )
 
-  // v(0.0337 * paper.height)
-  v(1fr)
+    // v(0.0168 * page.height)
+    v(1fr)
 
-  align(
-    center,
-    context {
-      smallcaps({
-        _localization.at(text.lang).academic_year
-        " "
-        academic-year
-      })
-    },
-  )
+    align(
+      center,
+      text(size: _sizes.Large, upper(title)),
+    )
+
+    // v(0.0673 * page.height)
+    v(1fr)
+
+    set text(size: _sizes.large)
+
+    align(
+      left,
+      context {
+        let arr = ()
+        if type(supervisors) == array and supervisors.len() > 1 {
+          for name in supervisors {
+            arr.push((_localization.at(text.lang).supervisor + ":", name))
+          }
+        } else {
+          arr.push((_localization.at(text.lang).supervisor + ":", supervisors))
+        }
+        if type(cosupervisors) == array and cosupervisors.len() > 1 {
+          for name in cosupervisors {
+            arr.push((_localization.at(text.lang).cosupervisor + ":", name))
+          }
+        } else {
+          arr.push((_localization.at(text.lang).cosupervisor + ":", cosupervisors))
+        }
+        grid(
+          columns: 2,
+          align: left,
+          column-gutter: 0.5cm,
+          row-gutter: 0.2cm,
+          ..arr.flatten()
+        )
+      },
+    )
+
+    context { v(0.0168 * page.height) }
+    // v(1fr)
+
+    align(
+      right,
+      box({
+        context {
+          set align(left)
+          type-of-thesis + " "
+          _localization.at(text.lang).type_of_thesis
+          ":" + linebreak()
+          author + linebreak()
+          _localization.at(text.lang).serial-number + " "
+          serial-number
+        }
+      }),
+    )
+
+    // v(0.0337 * paper.height)
+    v(1fr)
+
+    align(
+      center,
+      context {
+        smallcaps({
+          _localization.at(text.lang).academic_year
+          " "
+          academic-year
+        })
+      },
+    )
+  }
+
+  set page(footer: context align(center, counter(page).display()))
 
   show outline.entry.where(level: 1): it => {
     v(19pt, weak: true)
@@ -312,8 +319,6 @@
 #let dedication(body) = {
   _document-state.update("DEDICATION")
   pagebreak()
-  set align(right)
-  set text(style: "italic")
 
   body
 }
@@ -322,7 +327,7 @@
 /// -> content
 #let acknowledgements(body) = {
   _document-state.update("ACKNOWLEDGEMENTS")
-  set page(numbering: "i")
+  set page(numbering: "i", footer: context align(center, counter(page).display()))
 
   body
 }
@@ -346,7 +351,7 @@
 /// Appendix section. Similar to LaTeX's ```tex \appendix```. It sets heading numbering
 /// to ```typc"A.1"``` and resets their counter.
 /// -> content
-#let appendix(body) = context {
+#let appendix(body) = {
   _document-state.update("APPENDIX")
   counter(heading).update(0)
   set heading(numbering: "A.1")
@@ -357,10 +362,10 @@
 /// Backmatter section. Similar to LaTeX's ```tex \backmatter``.  It sets heading numbering
 /// to ```typc none``` and changes the footer format.
 /// -> content
-#let backmatter(body) = context {
+#let backmatter(body) = {
   _document-state.update("BACKMATTER")
   set heading(numbering: none)
-  set page(footer: align(center, counter(page).display()))
+  set page(footer: context align(center, counter(page).display()))
 
   body
 }
@@ -389,7 +394,6 @@
 /// lvl. 1 heading.
 /// -> content
 #let toc = context {
-  set page(footer: align(center, counter(page).display()))
   outline(
     title: _toc-figure(_localization.at(text.lang).toc),
     indent: 1em,

@@ -26,6 +26,8 @@
 
 #show: frontmatter
 
+#show: dedication
+
 #include "sections/dedica.typ"
 
 #show: acknowledgements
