@@ -56,7 +56,7 @@
   type-of-thesis: "Elaborato Finale",
   /// Author name and surname.
   /// -> string
-  author: "",
+  author: none,
   /// Author serial number.
   /// -> string
   serial-number: none,
@@ -75,18 +75,14 @@
   body,
 ) = {
   set document(
-    title: if title-metadata == "" { title } else { title-metadata },
-    author: author,
+    title: if title-metadata == none { title } else { title-metadata },
+    author: if author != none { author } else { () },
   )
 
   set text(
     font: "Libertinus Serif",
     lang: language,
-  )
-  set par(
-    justify: true,
-    spacing: 0.8em,
-    first-line-indent: 1.2em,
+    size: 11pt,
   )
 
   set page(
@@ -133,101 +129,118 @@
         h(1fr) + counter(page).display()
       }
     },
-    footer: none,
+    footer: context align(center, counter(page).display()),
   )
 
   // TITLE PAGE
 
-  {
-    align(
-      center,
-      context {
-        text(size: _sizes.LARGE, university) + linebreak()
-        upper(faculty)
-        v(0.0135 * page.height)
-        upper(department)
-        v(0.02 * page.height)
-        unilogo
-        v(0.0135 * page.height)
-        upper(course)
-      },
-    )
-
-    // v(0.0168 * page.height)
-    v(1fr)
-
-    align(
-      center,
-      text(size: _sizes.Large, upper(title)),
-    )
-
-    // v(0.0673 * page.height)
-    v(1fr)
-
-    set text(size: _sizes.large)
-
-    align(
-      left,
-      context {
-        let arr = ()
-        if type(supervisors) == array and supervisors.len() > 1 {
-          for name in supervisors {
-            arr.push((_localization.at(text.lang).supervisor + ":", name))
-          }
-        } else {
-          arr.push((_localization.at(text.lang).supervisor + ":", supervisors))
-        }
-        if type(cosupervisors) == array and cosupervisors.len() > 1 {
-          for name in cosupervisors {
-            arr.push((_localization.at(text.lang).cosupervisor + ":", name))
-          }
-        } else {
-          arr.push((_localization.at(text.lang).cosupervisor + ":", cosupervisors))
-        }
-        grid(
-          columns: 2,
-          align: left,
-          column-gutter: 0.5cm,
-          row-gutter: 0.2cm,
-          ..arr.flatten()
-        )
-      },
-    )
-
-    context { v(0.0168 * page.height) }
-    // v(1fr)
-
-    align(
-      right,
-      box({
+  page(
+    footer: none,
+    {
+      align(
+        center,
         context {
-          set align(left)
-          type-of-thesis + " "
-          _localization.at(text.lang).type_of_thesis
-          ":" + linebreak()
-          author + linebreak()
-          _localization.at(text.lang).serial-number + " "
-          serial-number
-        }
-      }),
-    )
+          text(size: _sizes.LARGE, university) + linebreak()
+          upper(faculty)
+          v(0.0135 * page.height)
+          upper(department)
+          v(0.02 * page.height)
+          unilogo
+          v(0.0135 * page.height)
+          upper(course)
+        },
+      )
 
-    // v(0.0337 * paper.height)
-    v(1fr)
+      // v(0.0168 * page.height)
+      v(1fr)
 
-    align(
-      center,
-      context {
-        smallcaps({
-          _localization.at(text.lang).academic_year
-          " "
-          academic-year
-        })
-      },
-    )
-  }
+      align(
+        center,
+        text(size: _sizes.Large, upper(title)),
+      )
 
-  set page(footer: context align(center, counter(page).display()))
+      // v(0.0673 * page.height)
+      v(1fr)
+
+      set text(size: _sizes.large)
+
+      align(
+        left,
+        context {
+          let arr = ()
+          if supervisors != () {
+            if type(supervisors) == array and supervisors.len() > 1 {
+              for name in supervisors {
+                arr.push((_localization.at(text.lang).supervisor + ":", name))
+              }
+            } else {
+              arr.push((_localization.at(text.lang).supervisor + ":", supervisors))
+            }
+          }
+          if cosupervisors != () {
+            if type(cosupervisors) == array and cosupervisors.len() > 1 {
+              for name in cosupervisors {
+                arr.push((_localization.at(text.lang).cosupervisor + ":", name))
+              }
+            } else {
+              arr.push((_localization.at(text.lang).cosupervisor + ":", cosupervisors))
+            }
+          }
+          grid(
+            columns: 2,
+            align: left,
+            column-gutter: 0.5cm,
+            row-gutter: 0.2cm,
+            ..arr.flatten()
+          )
+        },
+      )
+
+      context { v(0.0168 * page.height) }
+      // v(1fr)
+
+      align(
+        right,
+        box({
+          context {
+            set align(left)
+            if author != none {
+              type-of-thesis + " "
+              _localization.at(text.lang).type_of_thesis
+              ":" + linebreak()
+              author + linebreak()
+            }
+            if serial-number != none {
+              _localization.at(text.lang).serial-number + " "
+              serial-number
+            }
+          }
+        }),
+      )
+
+      // v(0.0337 * paper.height)
+      v(1fr)
+
+      align(
+        center,
+        context {
+          smallcaps({
+            _localization.at(text.lang).academic_year
+            " "
+            academic-year
+          })
+        },
+      )
+    },
+  )
+
+  set par(
+    justify: true,
+    spacing: 0.8em,
+    first-line-indent: 1.2em,
+  )
+
+  // Outlines
 
   show outline.entry.where(level: 1): it => {
     v(19pt, weak: true)
@@ -237,7 +250,8 @@
     )
   }
 
-  // page break before lvl.1 headings
+  // Headings
+
   show heading.where(level: 1): it => {
     pagebreak()
     v(3cm)
@@ -268,6 +282,8 @@
     v(8pt)
   }
 
+  // List, enums
+
   set list(
     indent: 1.2em,
     tight: false,
@@ -294,11 +310,6 @@
     it
   }
 
-  show figure.where(kind: "toc"): it => {
-    align(start, it.body + v(1em))
-  }
-
-  // Body
   body
 }
 
@@ -372,32 +383,21 @@
 
 // Table of Contents settings
 
-// make the outline appear in the outline
-#let _toc-figure = figure.with(
-  kind: "toc",
-  numbering: none,
-  supplement: none,
-  outlined: true,
-  caption: [],
-)
-
-#let _target = (
-  figure
-    .where(
-      kind: "toc",
-      outlined: true,
-    )
-    .or(heading.where(outlined: true))
-)
-
 /// Custom table of contents. It displays ```typc outline()``` as if it were a normal
 /// lvl. 1 heading.
 /// -> content
 #let toc = context {
   outline(
-    title: _toc-figure(_localization.at(text.lang).toc),
+    title: heading(
+      // outlined: true,
+      bookmarked: true,
+      numbering: none,
+      text(
+        size: 22pt,
+        _localization.at(text.lang).toc,
+      ),
+    ),
     indent: 1em,
-    target: _target,
   )
 }
 

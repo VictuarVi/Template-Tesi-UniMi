@@ -1,11 +1,13 @@
 #import "@preview/simple-unimi-thesis:0.2.0": *
 #import "@preview/zebraw:0.6.3": *
+#import "@preview/touying:0.7.3": *
 
 #show: zebraw.with(numbering: false, inset: (left: 1.25em))
 #show: unimi-presentation.with(
   config-info(
     title: [Manuale di `unimi-presentation`],
     author: [Vittorio Robecchi],
+    serial-number: "10851734",
     date: datetime.today(),
   ),
 )
@@ -42,11 +44,13 @@
 
 == Comandi generali
 
-- La presentazione si può dividere in sezioni e diapositive, rispettivamente utilizzando i titoli di livello 1 (```typ =```) e 2 (```typ ==```)
+- La presentazione si può dividere in sezioni e diapositive, rispettivamente utilizzando i titoli di livello 1 (```typ =```) e 2 (```typ ==```) #pause
 
-- Il titolo della sezione sarà quello del titolo corrispondente
+  - *Attenzione*: i numeri in basso a sinistra riferimento rispettivamente _al numero di diapositive adesso_ (#context utils.slide-counter.display()) e _al numero di diapositive totali_ (#context utils.last-slide-number) -- *NON* al numero di pagine #pause
 
-- Ogni volta che si cambia sezione, viene invocato l'indice con il titolo corrente evidenziato, mentre gli altri leggermente sbiaditi
+- Nell'intestazione apparianno sempre il titolo della diapositiva corrente e, al di sotto, quello della sezione #pause
+
+- Ogni volta che si cambia sezione, viene invocato l'indice con il titolo corrispondente evidenziato, mentre gli altri leggermente sbiaditi
 
 = Realizzazione della presentazione
 
@@ -66,7 +70,7 @@
   - Secondo #pause
   ``` #pause
 
-- Si noti come il numero della diapositiva sia rimasto il medesimo
+- Si noti come il numero della diapositiva sia rimasto il medesimo (ossia #context utils.slide-counter.display())
 
 == Colonne
 
@@ -79,13 +83,31 @@
 
   - Inoltre è utile utilizzare anche ```typ #colbreak()``` per l'interruzione di colonna #pause
 
-  - Touying invece offre ```typc #components.adaptive-columns()```, che distruibuisce il contenuto  su diverse colonne in base alle dimensioni
+  - Touying invece offre ```typ #components.adaptive-columns()```, che distruibuisce il contenuto  su diverse colonne in base alle dimensioni (come nell'indice)
 ]
+
+== Dividere le diapositive
+
+- Alla volte è utile passare alla prossima diapositiva prima, senza aspettare che il contenuto la riempia #pause
+
+- Un altro modo di vederlo è mostrare prima una certo contenuto...
+
+---
+
+- ...e solo dopo il resto; tuttavia "rimuovendo" la parte prima, come se la schermata venisse aggiornata #pause
+
+- Questo è possibile farlo utilizzando il separatore ```typc ---```, oppure usando la funzione ```typ #pagebreak()```
 
 == Conclusione
 
 - Generalmente le presentazioni terminano con una singola dispositiva che scrive "Grazie per l'attenzione" o auguri affini #pause
 
-- La funzione per questo scopo è ```typc #focus-slide(content)```, dove `content` è la frase di chiusura
+- La funzione standard per questo scopo è ```typ #focus-slide(content)```, dove `content` è la frase di chiusura #pause
+
+- Il codice della prossima -- e ultima -- diapositiva infatti è
+
+  ```typ
+  #focus-slide("Grazie per l'attenzione.")
+  ```
 
 #focus-slide("Grazie per l'attenzione.")

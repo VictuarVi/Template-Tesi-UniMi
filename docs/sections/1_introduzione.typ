@@ -24,28 +24,28 @@ Per quanto riguarda Typst, è possibile impostare i seguenti parametri:
     Dipartimento di Informatica \
     Giovanni degli Antoni
   ],
-  cdl: [
+  course: [
     Corsi di Laurea Triennale in \
     Corso di Laurea
   ],
-  // printed-title: "", // se si vuole un titolo stampato diverso da quello nei metadata
+  // metadata-title: "", // se si vuole un titolo nei metadata diverso da quello stampato
   title: "Un template meraviglioso",
   type-of-thesis: "Elaborato Finale",
   author: "Nome Cognome",
   serial-number: "123456",
   language: "it",
   supervisors: (
-    "Prof. Enrico Fermi",
+    "Prof. Relatore",
   ),
   cosupervisors: (
-    "Prof. Ezio Auditore da Firenze",
-    "Prof. Francesco Bianchi",
+    "Prof. Correlatore",
+    "Prof. Correlatore",
   ),
 )
 ```
-(questi listati sono gli argomenti default). Tutti gli attributi sono sufficientemente chiari -- tranne `printed-title`:
-- Esso il titolo che appare _al frontespizio_, nel PDF
-- `title` invece è quello che appare _nei metadata_ del file -- se `printed-title` è vuoto, allora è uguale a `title`
+Di default, sono tutti ```typc none``` -- quindi vanno compilati: qui sopra sono ad esempio (come nel `README`). Tutti gli attributi sono sufficientemente chiari -- tranne `metadata-title`:
+- Esso il titolo che appare _nei metadata_; quello che appare nel PDF è `title`
+- Se `metadata-title` è vuoto, allora è uguale a `title`
 
 == I contenuti
 <sec:contenuti>

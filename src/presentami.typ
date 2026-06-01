@@ -173,7 +173,7 @@
       context {
         if text.lang == "it" {
           block({
-            info.date.display("[day]")
+            info.date.display("[day padding:none]")
             " "
             (
               "Gennaio",
@@ -188,7 +188,9 @@
               "Ottobre",
               "Novembre",
               "Dicembre",
-            ).at(info.date.month() - 1)
+            )
+              .map(lower)
+              .at(info.date.month() - 1)
             " "
             info.date.display("[year]")
           })
@@ -221,6 +223,9 @@
         )
       },
     ),
+    config-common(
+      freeze-slide-counter: true,
+    ),
   )
   touying-slide(self: self, config: config, body)
 })
@@ -236,6 +241,9 @@
   let self = utils.merge-dicts(
     self,
     config-page(fill: self.colors.primary),
+    config-common(
+      freeze-slide-counter: true,
+    ),
   )
   set text(fill: self.colors.neutral-lightest, size: 1.5em)
   touying-slide(self: self, config: config, align(horizon + center, body))
@@ -279,6 +287,9 @@
     config-page(
       header: _header-mi(self, is-outline: true),
       fill: self.colors.primary,
+    ),
+    config-common(
+      freeze-slide-counter: true,
     ),
   )
   touying-slide(self: self, body)
