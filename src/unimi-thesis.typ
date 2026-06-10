@@ -27,6 +27,17 @@
   here().page() == h1.location().page()
 ))
 
+
+/// Get the prefix based on document state.
+/// -> string
+#let _get-prefix = context {
+  return if _document-state.get() == "APPENDIX" {
+    _localization.at(text.lang).appendix
+  } else {
+    _localization.at(text.lang).chapter
+  }
+}
+
 /// The main thesis formatting function.
 /// -> content
 #let unimi-thesis(
@@ -103,29 +114,29 @@
       ) {
         none
       } else if (_document-state.get() in ("MAINMATTER", "APPENDIX")) {
-        let heading-count = counter(heading).display(
-          (..args) => numbering(
-            heading.numbering,
-            args.pos().first(),
-          ),
-        )
-
-        let prefix = if _document-state.get() == "MAINMATTER" { _localization.at(text.lang).chapter } else {
-          _localization.at(text.lang).appendix
-        }
-
         // if there is no level 1 heading on the current page, print the last lvl 1 heading
         let before = query(selector(heading.where(level: 1)).before(here()))
-        let string = if (before.len() != 0) {
+        let heading-1 = if (before.len() != 0) {
           before.last().body
         }
 
-        upper(
-          text(
-            style: "italic",
-            prefix + " " + str(heading-count) + ". " + string,
-          ),
+        let output = heading-1
+
+        if heading.numbering != none {
+          let heading-count = counter(heading).display(
+            (..args) => numbering(
+              heading.numbering,
+              args.pos().first(),
+            ),
+          )
+          output = _get-prefix() + " " + str(heading-count) + ". " + output
+        }
+
+        text(
+          style: "italic",
+          output,
         )
+
         h(1fr) + counter(page).display()
       }
     },

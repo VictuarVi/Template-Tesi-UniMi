@@ -17,13 +17,14 @@
   grid(
     columns: 2,
     column-gutter: 1.1323cm,
-    image(
+    {
+      set image(height: 3.182cm, width: 2.673cm)
       if not is-outline {
-        "img/presentation/logo_RGB.svg"
-      } else { "img/presentation/logo_RGB_negative.svg" },
-      height: 3.182cm,
-      width: 2.673cm,
-    ),
+        self.store.header-logo-light
+      } else {
+        self.store.header-logo-dark
+      }
+    },
     align(
       bottom,
       context {
@@ -50,7 +51,7 @@
 
 /// Custom footer.
 /// -> content
-#let _footer-mi(self, info) = {
+#let _footer-mi(self) = {
   set align(bottom)
   set text(fill: white, size: 15pt)
   show: components.cell.with(
@@ -61,7 +62,7 @@
   h(1fr)
   utils.call-or-display(
     self,
-    (info.author, info.title).join(" | "),
+    (self.info.author, self.info.title).join(" | "),
   )
 }
 
@@ -109,11 +110,11 @@
   body,
 ) = touying-slide-wrapper(self => {
   let info = self.info + args.named()
-  self = utils.merge-dicts(
+  let self = utils.merge-dicts(
     self,
     config-page(
-      header: _header-mi(self),
-      footer: _footer-mi(self, info),
+      header: self.store.header,
+      footer: self.store.footer,
     ),
   )
   touying-slide(
@@ -147,6 +148,16 @@
           fill: self.colors.primary,
           weight: "bold",
           info.title,
+        ),
+      )
+    }
+    if info.subtitle != none {
+      block(
+        width: 53%,
+        text(
+          size: 1em,
+          fill: self.colors.primary,
+          info.subtitle,
         ),
       )
     }
@@ -203,7 +214,7 @@
   let self = utils.merge-dicts(
     self,
     config-page(
-      header: _header-mi(self),
+      header: self.store.header,
       background: context {
         set curve.line(relative: true)
         place(
@@ -219,7 +230,7 @@
         )
         align(
           right + bottom,
-          _make-logo(),
+          self.info.logo,
         )
       },
     ),
@@ -328,6 +339,13 @@
       author: none,
       serial-number: none,
       date: datetime.today(),
+      logo: _make-logo(),
+    ),
+    config-store(
+      header: _header-mi,
+      header-logo-light: image("img/presentation/logo_RGB.svg"),
+      header-logo-dark: image("img/presentation/logo_RGB_negative.svg"),
+      footer: _footer-mi,
     ),
     ..args,
   )

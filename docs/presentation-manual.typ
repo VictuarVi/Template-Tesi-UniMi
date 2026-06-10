@@ -1,6 +1,6 @@
 #import "@preview/simple-unimi-thesis:0.2.0": *
-#import "@preview/zebraw:0.6.3": *
 #import "@preview/touying:0.7.3": *
+#import "@preview/zebraw:0.6.3": *
 
 #show: zebraw.with(numbering: false, inset: (left: 1.25em))
 #show: unimi-presentation.with(
@@ -28,7 +28,7 @@
       course: [Corso di Laurea],
       author: [Nome Cognome],
       serial-number: [123456],
-      date: datetime.today(),
+      date: datetime(...),
     ),
   )
   ```
@@ -38,7 +38,7 @@
   #set text(lang: "it")
   ```
 
-- Sia la diapositiva del titolo che quelle normali faranno riferimento a quei dati; rispettivamente per tutto e solo per autore, titolo
+- Sia la diapositiva del titolo che quelle normali faranno riferimento a quei dati #pause
 
 - Essa è chiamabile mediante ```typ #title-slide()``` e generalmente si piazza appena dopo la precedente funzione
 
@@ -46,7 +46,7 @@
 
 - La presentazione si può dividere in sezioni e diapositive, rispettivamente utilizzando i titoli di livello 1 (```typ =```) e 2 (```typ ==```) #pause
 
-  - *Attenzione*: i numeri in basso a sinistra riferimento rispettivamente _al numero di diapositive adesso_ (#context utils.slide-counter.display()) e _al numero di diapositive totali_ (#context utils.last-slide-number) -- *NON* al numero di pagine #pause
+  - *Attenzione*: i numeri in basso a sinistra fanno riferimento rispettivamente _al numero di diapositive adesso_ (#context utils.slide-counter.display()) e _al numero di diapositive totali_ (#context utils.last-slide-number) -- *NON* al numero di pagine #pause
 
 - Nell'intestazione apparianno sempre il titolo della diapositiva corrente e, al di sotto, quello della sezione #pause
 
@@ -96,7 +96,7 @@
 
 - ...e solo dopo il resto; tuttavia "rimuovendo" la parte prima, come se la schermata venisse aggiornata #pause
 
-- Questo è possibile farlo utilizzando il separatore ```typc ---```, oppure usando la funzione ```typ #pagebreak()```
+- Questo è possibile farlo utilizzando il separatore ```typ ---```, oppure usando la funzione ```typ #pagebreak()```
 
 == Conclusione
 
