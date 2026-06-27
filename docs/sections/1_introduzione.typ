@@ -6,9 +6,12 @@ Questo documento ha una duplice funzione: da un lato mostra un esempio completo 
 <il-template>
 Il template LaTeX è stato sviluppato, negli anni, dai membri del Laboratorio di Informatica Musicale (LIM) dell'Università degli Studi di Milano, in particolare da: Giorgio Presti, Luca Andrea Ludovico, Federico Avanzini, e Marco Tiraboschi. Questo template è un porting in Typst di quello LaTeX del LIM, la cui versione continuamente aggiornata è disponibile su Overleaf al seguente link:
 
-#box(
-  inset: 1.2em,
-  link("https://www.overleaf.com/read/hmffzxzhhdqn"),
+#align(
+  center,
+  block(
+    inset: 1.2em,
+    link("https://www.overleaf.com/read/hmffzxzhhdqn"),
+  ),
 )
 
 È stato principalmente inteso per gli elaborati finali del corso di laurea triennale in Informatica Musicale, e poi esteso anche agli altri CdL del Dipartimento di Informatica, ma può essere riadattato anche per altri corsi cambiando i metadati nel preambolo. Nel resto del documento, dove non specificato, useremo il termine #emph[tesi] nella sua accezione generica che include anche gli elaborati triennali.
@@ -30,7 +33,7 @@ Per quanto riguarda Typst, è possibile impostare i seguenti parametri:
   ],
   // metadata-title: "", // se si vuole un titolo nei metadata diverso da quello stampato
   title: "Un template meraviglioso",
-  type-of-thesis: "Elaborato Finale",
+  thesis-type: "Elaborato Finale",
   author: "Nome Cognome",
   serial-number: "123456",
   language: "it",
@@ -46,6 +49,10 @@ Per quanto riguarda Typst, è possibile impostare i seguenti parametri:
 Di default, sono tutti ```typc none``` -- quindi vanno compilati: qui sopra sono ad esempio (come nel `README`). Tutti gli attributi sono sufficientemente chiari -- tranne `metadata-title`:
 - Esso il titolo che appare _nei metadata_; quello che appare nel PDF è `title`
 - Se `metadata-title` è vuoto, allora è uguale a `title`
+
+Inoltre ci sono:
+- `header-line` (true/false): se aggiungere una riga nera al di sotto dell'intestazione
+- `link-font`: per cambiare il font dei link
 
 == I contenuti
 <sec:contenuti>

@@ -16,7 +16,7 @@ Le difficoltà iniziali, però, sono ampiamente compensate dai vantaggi a medio 
 
 === Risorse e strumenti
 <risorse-e-strumenti>
-Esiste una vastissima gamma di risorse online per avvicinarsi a Typst. Un buon punto di partenza è navigare l'applicazione web di Typst,#footnote[#link("https://typst.app/");] che contiene una ricca documentazione su come funziona il linguaggio,#footnote[#link("https://typst.app/docs/");] un archivio di librerie e template #footnote()[#link("https://typst.app/universe/")] e anche un forum nel quale trovare le domande più frequenti.#footnote[#link("https://forum.typst.app/");]
+Esiste una vastissima gamma di risorse online per avvicinarsi a Typst. Un buon punto di partenza è navigare l'applicazione web di Typst,#footnote[#link("https://typst.app/").] che contiene una ricca documentazione su come funziona il linguaggio,#footnote[#link("https://typst.app/docs/").] un archivio di librerie e template #footnote()[#link("https://typst.app/universe/").] e anche un forum nel quale trovare le domande più frequenti.#footnote[#link("https://forum.typst.app/").]
 
 In alternativa a un'installazione locale sul proprio pc, è possibile utilizzare un editor Typst~online, con il vantaggio di avere immediatamente a disposizione l'ambiente di sviluppo e tutti i package necessari, nonché di potere condividere il proprio progetto con il relatore di tesi. Il più diffuso editor online per questo linguaggio è l'app web fornita direttamente da Typst: una semplice iscrizione tramite mail permette di accedere all'editor.
 
@@ -53,7 +53,10 @@ Sintatticamente, questo richiede di inserire delle label `<mia_label>` dopo una 
 I ritorni a capo in Typst~possono essere effettuati in due modi: con la sintassi `\` o con una doppia pressione del tasto di ritorno a capo. In generale, la soluzione corretta è la seconda, che equivale a usare il tasto Enter in Word. Il Backslash, che corrisponde a Shift+Enter in Word, crea una nuova riga senza interruzione del paragrafo. Questo va usato solo in casi molto specifici, come nella frase seguente.
 
 Il sito web ufficiale dell'Università degli Studi di Milano è:
-#align(center, link("https://www.unimi.it"))
+#align(
+  center,
+  block(inset: 1.2em, link("https://www.unimi.it")),
+)
 
 In questo template, un nuovo paragrafo (dopo un doppio a capo) crea un rientro della prima riga. Questo viene fatto impostando il parametro `first-line-indent` di `par` al valore `1.2em`. Non c'è nulla di male nel rientro, ma se proprio lo si vuole evitare la soluzione è rimuovere il parametro appena citato.
 
@@ -87,7 +90,7 @@ def MCD(a,b):
   return a
 ```
 
-L'elenco dei linguaggi ufficialmente supportati non è disponibile, ma è presente una lista #footnote[#link("https://github.com/typst/typst/issues/1511#issuecomment-1822459773")] non ufficiale creata da un utente grazie all'autocompletamento dell'editor della web app.
+L'elenco dei linguaggi ufficialmente supportati non è disponibile, ma è presente una lista #footnote[#link("https://github.com/typst/typst/issues/1511#issuecomment-1822459773").] non ufficiale creata da un utente grazie all'autocompletamento dell'editor della web app.
 
 === Figure
 <figure>
@@ -105,7 +108,7 @@ Esistono più modi per inserire una bibliografia in Typst: o quello di BibLaTeX 
 
 La differenza è che il primo è lo standard che arriva da LaTeX -- e quindi tutto ciò che ne consegue: ampio supporto, letto ed esportato ovunque -- mentre il secondo è l'approccio alla Typst, quindi molto più agile, intuitivo; ma in quanto più moderno non si aspetti lo stesso supporto.
 
-/ Per BibLaTeX : Una guida introduttiva e completa è "Tame the BeaST".#footnote[Accessibile da #link("http://www.tug.org/interest.html");] In estrema sintesi, i passi per gestire una bibliografia tramite sono essenzialmente tre.
+/ Per BibLaTeX: Una guida introduttiva e completa è "Tame the BeaST".#footnote[Accessibile da #link("http://www.tug.org/interest.html").] In estrema sintesi, i passi per gestire una bibliografia tramite sono essenzialmente tre.
 
 + Salvare i riferimenti bibliografici come entry di uno o più file con l'estensione `.bib` (si veda ad esempio il file `bibliografia.bib`, parte di questo template). Gli entry sono scritti in un formato specifico, in particolare ogni entry ha una propria etichetta testuale che lo identifica univocamente
 
@@ -121,7 +124,7 @@ La scelta del sistema ricade sulla fonte della bibliografia: se è principalment
 
 === Strumenti
 <strumenti>
-Un file .bib è un file di testo e può quindi essere gestito con un qualsiasi text editor. Esistono comunque molti tool più evoluti per gestire bibliografie in formato bib. Un'applicazione installabile localmente sul proprio pc è JabRef.#footnote[#link("http://www.jabref.org");];. Oppure esistono tool online, come Zotero,#footnote[#link("http://www.zotero.org");] che forniscono molte funzionalità tra cui l'esportazione di bibliografie in formato bib.
+Un file .bib è un file di testo e può quindi essere gestito con un qualsiasi text editor. Esistono comunque molti tool più evoluti per gestire bibliografie in formato bib. Un'applicazione installabile localmente sul proprio pc è JabRef.#footnote[#link("http://www.jabref.org").]. Oppure esistono tool online, come Zotero,#footnote[#link("http://www.zotero.org").] che forniscono molte funzionalità tra cui l'esportazione di bibliografie in formato bib.
 
 Peraltro, anche Google Scholar esporta automaticamente citazioni in formato bib cliccando sul link Cita (icona con doppie virgolette) e scegliendo l'opzione nella parte bassa della finestra che si apre. #strong[Attenzione] però: spesso i bib esportati da Scholar sono incompleti o sporchi, è sempre consigliabile controllarne la correttezza.
 

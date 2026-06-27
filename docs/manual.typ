@@ -1,4 +1,7 @@
 #import "@preview/simple-unimi-thesis:0.2.0": *
+#import "@preview/zebraw:0.6.3": *
+
+#show: zebraw
 
 #show: unimi-thesis.with(
   title: {
@@ -25,14 +28,6 @@
 )
 
 #show: frontmatter
-
-#show: dedication
-
-#include "sections/dedica.typ"
-
-#show: acknowledgements
-
-#include "sections/ringraziamenti.typ"
 
 #toc
 

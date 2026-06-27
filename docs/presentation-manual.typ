@@ -1,5 +1,5 @@
 #import "@preview/simple-unimi-thesis:0.2.0": *
-#import "@preview/touying:0.7.3": *
+#import "@preview/touying:0.7.4": *
 #import "@preview/zebraw:0.6.3": *
 
 #show: zebraw.with(numbering: false, inset: (left: 1.25em))
@@ -33,10 +33,13 @@
   )
   ```
 
+---
+
 - Impostare la lingua:
   ```typ
   #set text(lang: "it")
   ```
+  #pause
 
 - Sia la diapositiva del titolo che quelle normali faranno riferimento a quei dati #pause
 
@@ -46,11 +49,11 @@
 
 - La presentazione si può dividere in sezioni e diapositive, rispettivamente utilizzando i titoli di livello 1 (```typ =```) e 2 (```typ ==```) #pause
 
-  - *Attenzione*: i numeri in basso a sinistra fanno riferimento rispettivamente _al numero di diapositive adesso_ (#context utils.slide-counter.display()) e _al numero di diapositive totali_ (#context utils.last-slide-number) -- *NON* al numero di pagine #pause
+  - *Attenzione*: i numeri in basso a sinistra fanno riferimento rispettivamente al numero di diapositive _adesso_ (#context utils.slide-counter.display()) e al numero di diapositive _totali_ (#context utils.last-slide-number) -- *NON* al numero di pagine #pause
 
 - Nell'intestazione apparianno sempre il titolo della diapositiva corrente e, al di sotto, quello della sezione #pause
 
-- Ogni volta che si cambia sezione, viene invocato l'indice con il titolo corrispondente evidenziato, mentre gli altri leggermente sbiaditi
+- Ogni volta che si cambia sezione, viene invocato l'indice con il titolo corrispondente evidenziato, mentre gli altri leggermente sbiaditi (vedasi prossima diapositiva)
 
 = Realizzazione della presentazione
 
@@ -96,7 +99,7 @@
 
 - ...e solo dopo il resto; tuttavia "rimuovendo" la parte prima, come se la schermata venisse aggiornata #pause
 
-- Questo è possibile farlo utilizzando il separatore ```typ ---```, oppure usando la funzione ```typ #pagebreak()```
+- Questo è possibile farlo utilizzando il separatore ```typ ---```, che chiama la funzione ```typ #pagebreak()```
 
 == Conclusione
 

@@ -27,10 +27,9 @@
   here().page() == h1.location().page()
 ))
 
-
 /// Get the prefix based on document state.
 /// -> string
-#let _get-prefix = context {
+#let _get-prefix() = context {
   return if _document-state.get() == "APPENDIX" {
     _localization.at(text.lang).appendix
   } else {
@@ -64,7 +63,7 @@
   title-metadata: none,
   /// Type of thesis
   /// -> string
-  type-of-thesis: "Elaborato Finale",
+  thesis-type: "Elaborato Finale",
   /// Author name and surname.
   /// -> string
   author: none,
@@ -83,6 +82,12 @@
   /// The academic year of the graduation.
   /// -> content | string
   academic-year: [2026 --- 2027],
+  /// Change the links font.
+  /// -> string
+  link-font: "Dejavu Sans Mono",
+  /// Whether to add a line below the header.
+  /// -> bool
+  header-line: false,
   body,
 ) = {
   set document(
@@ -132,12 +137,28 @@
           output = _get-prefix() + " " + str(heading-count) + ". " + output
         }
 
-        text(
-          style: "italic",
-          output,
-        )
+        let args = if (header-line) {
+          (
+            inset: (
+              bottom: 0.5em,
+            ),
+            stroke: (
+              bottom: black + 0.05em,
+            ),
+          )
+        }
 
-        h(1fr) + counter(page).display()
+        block(
+          ..args,
+          upper(
+            text(
+              style: "italic",
+              output,
+            )
+              + h(1fr)
+              + counter(page).display(),
+          ),
+        )
       }
     },
     footer: context align(center, counter(page).display()),
@@ -216,7 +237,7 @@
           context {
             set align(left)
             if author != none {
-              type-of-thesis + " "
+              thesis-type + " "
               _localization.at(text.lang).type_of_thesis
               ":" + linebreak()
               author + linebreak()
@@ -264,14 +285,10 @@
   // Headings
 
   show heading.where(level: 1): it => {
-    pagebreak()
+    pagebreak(weak: true)
     v(3cm)
     if (it.numbering != none) {
-      if (_document-state.get() == "MAINMATTER") {
-        _localization.at(text.lang).chapter
-      } else if (_document-state.get() == "APPENDIX") {
-        _localization.at(text.lang).appendix
-      }
+      _get-prefix()
       " "
       counter(selector(heading)).display()
     }
@@ -321,6 +338,17 @@
     it
   }
 
+  // Link
+
+  show link: it => {
+    if type(it.dest) == str {
+      set text(font: link-font)
+      it
+    } else {
+      it
+    }
+  }
+
   body
 }
 
@@ -362,10 +390,6 @@
   set page(numbering: "1")
   set heading(numbering: "1.1")
   counter(page).update(1)
-
-  // Workaround to print links in monospaced font
-  // after the TOC because the outline entries are links
-  // show link: set text(font: "JetBrainsMono NF", size: 0.8em)
 
   body
 }
