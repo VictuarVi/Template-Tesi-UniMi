@@ -1,6 +1,8 @@
 it:
   supervisor: Relatore
+  supervisors: Relatori
   cosupervisor: Correlatore
+  cosupervisors: Correlatori
   type_of_thesis: di
   serial-number: Matr. Nr.
   academic_year: Anno Accademico
@@ -11,7 +13,9 @@ it:
   toc: Indice
 en:
   supervisor: Supervisor
+  supervisors: Supervisors
   cosupervisor: Cosupervisor
+  cosupervisors: Cosupervisors
   type_of_thesis: of
   serial-number: Matr. No.
   academic_year: Academic Year

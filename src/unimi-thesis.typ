@@ -1,41 +1,4 @@
-/// LaTeX sizes to match original templates (https://tex.stackexchange.com/questions/24599/what-point-pt-font-size-are-large-etc)
-/// -> dict
-#let _sizes = (
-  tiny: 0.5em,
-  scriptsize: 0.7em,
-  footnotesize: 0.8em,
-  small: 0.9em,
-  normalsize: 1em,
-  large: 1.2em,
-  Large: 1.44em,
-  LARGE: 1.728em,
-  huge: 2.074em,
-  Huge: 2.488em,
-)
-
-/// The current document section e.g. title page, mainmatter...).
-/// -> state
-#let _document-state = state("init", "TITLE_PAGE")
-
-/// Localization dictionary.
-/// -> dict
-#let _localization = yaml("utils/locale.yaml")
-
-/// Get the lvl. 1 heading in the current page. Returns an empty array if none are found.
-/// -> array
-#let _h1-current-page() = query(selector(heading.where(level: 1))).filter(h1 => (
-  here().page() == h1.location().page()
-))
-
-/// Get the prefix based on document state.
-/// -> string
-#let _get-prefix() = context {
-  return if _document-state.get() == "APPENDIX" {
-    _localization.at(text.lang).appendix
-  } else {
-    _localization.at(text.lang).chapter
-  }
-}
+#import "utils.typ": *
 
 /// The main thesis formatting function.
 /// -> content
@@ -161,11 +124,12 @@
         )
       }
     },
-    footer: context align(center, counter(page).display()),
+    footer: none,
   )
 
   // TITLE PAGE
 
+  // LIM template frontispiece
   page(
     footer: none,
     {
@@ -198,33 +162,9 @@
 
       align(
         left,
-        context {
-          let arr = ()
-          if supervisors != () {
-            if type(supervisors) == array and supervisors.len() > 1 {
-              for name in supervisors {
-                arr.push((_localization.at(text.lang).supervisor + ":", name))
-              }
-            } else {
-              arr.push((_localization.at(text.lang).supervisor + ":", supervisors))
-            }
-          }
-          if cosupervisors != () {
-            if type(cosupervisors) == array and cosupervisors.len() > 1 {
-              for name in cosupervisors {
-                arr.push((_localization.at(text.lang).cosupervisor + ":", name))
-              }
-            } else {
-              arr.push((_localization.at(text.lang).cosupervisor + ":", cosupervisors))
-            }
-          }
-          grid(
-            columns: 2,
-            align: left,
-            column-gutter: 0.5cm,
-            row-gutter: 0.2cm,
-            ..arr.flatten()
-          )
+        {
+          _show-starvisor(supervisors, "supervisor")
+          _show-starvisor(cosupervisors, "cosupervisor")
         },
       )
 
