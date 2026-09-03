@@ -11,7 +11,7 @@
     "Prof. Primo Relatore",
   ),
   cosupervisors: "Prof. Primo Correlatore",
-  type-of-thesis: "Elaborato Finale",
+  thesis-type: "Elaborato Finale",
   // academic-year: [2026 --- 2027],
 )
 

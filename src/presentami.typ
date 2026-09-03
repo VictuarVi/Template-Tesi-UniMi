@@ -72,6 +72,7 @@
   /// Name of the university.
   /// -> content | string
   university: "Università\ndegli Studi\ndi Milano",
+  color: white,
 ) = {
   pad(
     1cm,
@@ -79,10 +80,17 @@
       columns: 3,
       column-gutter: 0.5cm,
       align: horizon,
-      image("img/unimi-white.svg", height: 3.5cm),
-      line(stroke: white + 1pt, angle: 90deg, length: 3.5cm),
+      image(
+        if color == white {
+          "img/unimi-white.svg"
+        } else {
+          "img/unimi-black.svg"
+        },
+        height: 3.5cm,
+      ),
+      line(stroke: color + 1pt, angle: 90deg, length: 3.5cm),
       align(left, text(
-        fill: white,
+        fill: color,
         weight: "bold",
         font: "Libertinus Serif",
         size: 23pt,

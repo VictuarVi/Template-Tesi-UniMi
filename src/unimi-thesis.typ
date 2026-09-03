@@ -51,6 +51,9 @@
   /// Whether to add a line below the header.
   /// -> bool
   header-line: false,
+  /// The chosen frontispiece.
+  /// -> string
+  frontispiece: "alternate",
   body,
 ) = {
   set document(
@@ -129,81 +132,22 @@
 
   // TITLE PAGE
 
-  // LIM template frontispiece
-  page(
-    footer: none,
-    {
-      align(
-        center,
-        context {
-          text(size: _sizes.LARGE, university) + linebreak()
-          upper(faculty)
-          v(0.0135 * page.height)
-          upper(department)
-          v(0.02 * page.height)
-          unilogo
-          v(0.0135 * page.height)
-          upper(course)
-        },
-      )
+  import "frontispiece.typ": *
 
-      // v(0.0168 * page.height)
-      v(1fr)
-
-      align(
-        center,
-        text(size: _sizes.Large, upper(title)),
-      )
-
-      // v(0.0673 * page.height)
-      v(1fr)
-
-      set text(size: _sizes.large)
-
-      align(
-        left,
-        {
-          _show-starvisor(supervisors, "supervisor")
-          _show-starvisor(cosupervisors, "cosupervisor")
-        },
-      )
-
-      context { v(0.0168 * page.height) }
-      // v(1fr)
-
-      align(
-        right,
-        box({
-          context {
-            set align(left)
-            if author != none {
-              thesis-type + " "
-              _localization.at(text.lang).type_of_thesis
-              ":" + linebreak()
-              author + linebreak()
-            }
-            if serial-number != none {
-              _localization.at(text.lang).serial-number + " "
-              serial-number
-            }
-          }
-        }),
-      )
-
-      // v(0.0337 * paper.height)
-      v(1fr)
-
-      align(
-        center,
-        context {
-          smallcaps({
-            _localization.at(text.lang).academic_year
-            " "
-            academic-year
-          })
-        },
-      )
-    },
+  frontispieces.at(frontispiece)(
+    university,
+    faculty,
+    department,
+    unilogo,
+    course,
+    title,
+    none, // subtitle
+    supervisors,
+    cosupervisors,
+    thesis-type,
+    author,
+    serial-number,
+    academic-year,
   )
 
   set par(
