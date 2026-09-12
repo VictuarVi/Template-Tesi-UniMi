@@ -7,10 +7,13 @@
 - Added presentation
 - Added presentation manual
 - Added proper documentation
+- Added alternate frontispiece
+- Added subtitle arguments
 - Correctly aligned arguments
 - Updated manual
 - Changed `closingpage()` to be more modular
 - Overall code refactor
+- Removed `title-metadata` argument
 
 ## 0.1.1 - 2026-03-16
 

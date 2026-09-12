@@ -27,9 +27,9 @@
       // )
       {
         set par(spacing: 0cm)
-        scale(80%, _make-logo(color: black))
-        set text(size: 1.7em, font: "Liberation Serif")
+        scale(80%, _make-logo(_color: black))
 
+        set text(size: 1.7em, font: "Liberation Serif")
         if faculty != none {
           upper(faculty)
         }
@@ -88,7 +88,7 @@
         smallcaps(author)
         if serial-number != none {
           parbreak()
-          "Matricola: " + serial-number
+          context _localization.at(text.lang).serial-number + serial-number
         }
 
         if course != none {
@@ -116,8 +116,8 @@
 
       text(
         size: 1.2em,
-        smallcaps({
-          "Anno Accademico "
+        smallcaps(context{
+          _localization.at(text.lang).academic-year
           if type(academic-year) == datetime {
             let current-year = academic-year.year()
             str(current-year - 1) + [ --- ] + str(current-year)
@@ -135,6 +135,7 @@
     unilogo,
     course,
     title,
+    subtitle,
     supervisors,
     cosupervisors,
     thesis-type,
@@ -166,6 +167,15 @@
         text(size: _sizes.Large, upper(title)),
       )
 
+      v(0.5cm)
+
+      if (subtitle != none) {
+        align(
+          center,
+          subtitle,
+        )
+      }
+
       // v(0.0673 * page.height)
       v(1fr)
 
@@ -189,7 +199,7 @@
             set align(left)
             if author != none {
               thesis-type + " "
-              _localization.at(text.lang).type_of_thesis
+              _localization.at(text.lang).type-of-thesis
               ":" + linebreak()
               author + linebreak()
             }
@@ -208,7 +218,7 @@
         center,
         context {
           smallcaps({
-            _localization.at(text.lang).academic_year
+            _localization.at(text.lang).academic-year
             " "
             academic-year
           })

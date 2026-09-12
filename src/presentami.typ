@@ -1,9 +1,6 @@
 #import "@preview/touying:0.7.3": *
 #import "statale-colors.typ" as palette
-
-/// Localization dictionary.
-/// -> dict
-#let _localization = yaml("utils/locale.yaml")
+#import "utils.typ": _localization
 
 /// Custom header.
 /// -> content
@@ -69,10 +66,8 @@
 /// Draw the logo with the university name on the right.
 /// -> content
 #let _make-logo(
-  /// Name of the university.
-  /// -> content | string
-  university: "Università\ndegli Studi\ndi Milano",
-  color: white,
+  _university: "Università\ndegli Studi\ndi Milano",
+  _color: white,
 ) = {
   pad(
     1cm,
@@ -81,20 +76,20 @@
       column-gutter: 0.5cm,
       align: horizon,
       image(
-        if color == white {
+        if _color == white {
           "img/unimi-white.svg"
         } else {
           "img/unimi-black.svg"
         },
         height: 3.5cm,
       ),
-      line(stroke: color + 1pt, angle: 90deg, length: 3.5cm),
+      line(stroke: _color + 1pt, angle: 90deg, length: 3.5cm),
       align(left, text(
-        fill: color,
+        fill: _color,
         weight: "bold",
         font: "Libertinus Serif",
         size: 23pt,
-        upper(university),
+        upper(_university),
       )),
     ),
   )
@@ -112,7 +107,11 @@
   /// Whether to repeat this slide.
   /// -> auto | bool
   repeat: auto,
+  /// Touying settings for this slide.
+  /// -> dictionary
   setting: body => body,
+  /// Touying compsoser arguments for this slide.
+  /// -> dictionary
   composer: auto,
   ..args,
   body,
@@ -317,11 +316,16 @@
 /// Main presentation function.
 /// -> content
 #let unimi-presentation(
+  /// Aspect ratio of the presentation.
+  /// -> string
   aspect-ratio: "16-9",
+  /// Language of the presentation.
+  /// -> string
+  language: "it",
   ..args,
   body,
 ) = {
-  set text(size: 20pt, font: "Carlito", number-type: "old-style")
+  set text(size: 20pt, font: "Carlito", number-type: "old-style", lang: language)
   show heading.where(level: 1): set heading(numbering: "1")
 
   show: touying-slides.with(

@@ -35,6 +35,10 @@
 
 #toc // table of contents
 
+#list-of-figures
+
+#list-of-tables
+
 #show: mainmatter
 
 // main section of the thesis

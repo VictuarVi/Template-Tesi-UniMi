@@ -15,7 +15,7 @@
 
 /// The current document section e.g. title page, mainmatter...).
 /// -> state
-#let _document-state = state("init", "TITLE_PAGE")
+#let _document-state = state("document-state", "TITLE_PAGE")
 
 /// Localization dictionary.
 /// -> dict
@@ -35,6 +35,12 @@
   } else {
     _localization.at(text.lang).chapter
   }
+}
+
+/// Custom numbering with prefix included.
+/// -> string
+#let _custom-numbering(numbering, ..args) = context {
+  return _get-prefix() + " " + std.numbering(numbering, ..args)
 }
 
 /// Helper function to handle (co)supervisor(s).

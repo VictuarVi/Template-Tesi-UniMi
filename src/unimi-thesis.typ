@@ -1,4 +1,5 @@
 #import "utils.typ": *
+#import "frontispiece.typ": *
 
 /// The main thesis formatting function.
 /// -> content
@@ -21,9 +22,9 @@
   /// Title of the thesis.
   /// -> string | content
   title: "Titolo della Tesi",
-  /// Title in the metadata. Defaults to the title.
+  /// Subtitle of the thesis.
   /// -> string,
-  title-metadata: none,
+  subtitle: "Sottotitolo della tesi",
   /// Type of thesis
   /// -> string
   thesis-type: "Elaborato Finale",
@@ -57,7 +58,7 @@
   body,
 ) = {
   set document(
-    title: if title-metadata == none { title } else { title-metadata },
+    title: title,
     author: if author != none { author } else { () },
   )
 
@@ -100,7 +101,7 @@
               args.pos().first(),
             ),
           )
-          output = _get-prefix() + " " + str(heading-count) + ". " + output
+          output = heading-count + ". " + output
         }
 
         let args = if (header-line) {
@@ -132,8 +133,6 @@
 
   // TITLE PAGE
 
-  import "frontispiece.typ": *
-
   frontispieces.at(frontispiece)(
     university,
     faculty,
@@ -141,7 +140,7 @@
     unilogo,
     course,
     title,
-    none, // subtitle
+    subtitle,
     supervisors,
     cosupervisors,
     thesis-type,
@@ -162,7 +161,15 @@
     v(19pt, weak: true)
     link(
       it.element.location(),
-      strong(it.indented(it.prefix(), it.element.body + h(1fr) + it.page())),
+      strong(it.indented(
+        {
+          it.prefix()
+          if (it.element.numbering != none) {
+            [ --]
+          }
+        },
+        it.element.body + h(1fr) + it.page(),
+      )),
     )
   }
 
@@ -172,8 +179,6 @@
     pagebreak(weak: true)
     v(3cm)
     if (it.numbering != none) {
-      _get-prefix()
-      " "
       counter(selector(heading)).display()
     }
     v(10pt)
@@ -272,7 +277,7 @@
 #let mainmatter(body) = {
   _document-state.update("MAINMATTER")
   set page(numbering: "1")
-  set heading(numbering: "1.1")
+  set heading(numbering: (..args) => _custom-numbering("1.1", ..args))
   counter(page).update(1)
 
   body
@@ -284,7 +289,7 @@
 #let appendix(body) = {
   _document-state.update("APPENDIX")
   counter(heading).update(0)
-  set heading(numbering: "A.1")
+  set heading(numbering: (..args) => _custom-numbering("A.1", ..args))
 
   body
 }
@@ -319,6 +324,76 @@
     indent: 1em,
   )
 }
+
+/// Internal helper function to create the custom lists of figures and table.
+/// -> content
+#let _lists-entries-style(
+  /// Outline entry to edit.
+  /// -> outline-entry
+  outline-entry,
+  /// The kind of the outline entry element (image or table).
+  /// -> function
+  kind,
+) = {
+  // don't print figures without caption
+  if outline-entry.element.at("caption") == none { return }
+  let count = (
+    str(counter(heading.where(level: 1)).at(outline-entry.element.location()).at(0))
+      + "."
+      + str(counter(figure.where(kind: kind)).at(outline-entry.element.location()).at(0))
+  )
+  link(outline-entry.element.location(), {
+    count
+    h(1em)
+    outline-entry.element.at("caption").body
+    box(width: 1fr, repeat([\u{0009} \u{0009} . \u{0009}])) // \u{0009} = Tab
+    str(counter(page).at(outline-entry.element.location()).at(0))
+  })
+  linebreak()
+}
+
+/// List of figures. Similar to LaTeX's ```tex \listoffigures```.
+/// -> content
+#let list-of-figures = {
+  show outline.entry: it => {
+    _lists-entries-style(it, image)
+  }
+  outline(
+    title: context heading(
+      // outlined: true,
+      bookmarked: true,
+      numbering: none,
+      text(
+        size: 22pt,
+        _localization.at(text.lang).list-of-figures,
+      ),
+    ),
+    indent: 1.2em,
+    target: figure.where(kind: image),
+  )
+}
+
+/// List of tables. Similar to LaTeX's ```tex \listoftables```.
+/// -> content
+#let list-of-tables = {
+  show outline.entry: it => {
+    _lists-entries-style(it, table)
+  }
+  outline(
+    title: context heading(
+      // outlined: true,
+      bookmarked: true,
+      numbering: none,
+      text(
+        size: 22pt,
+        _localization.at(text.lang).list-of-tables,
+      ),
+    ),
+    indent: 1.2em,
+    target: figure.where(kind: table),
+  )
+}
+
 
 /// Ready-made laboratories.
 /// -> dictionary
@@ -358,7 +433,7 @@
     }
   }
 
-  _localization.at(text.lang).lab_prefix + " "
+  _localization.at(text.lang).lab-prefix + " "
   name + linebreak()
   // laboratories.at(name).company + linebreak()
   link(url)
