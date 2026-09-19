@@ -24,7 +24,7 @@
   title: "Titolo della Tesi",
   /// Subtitle of the thesis.
   /// -> string,
-  subtitle: "Sottotitolo della tesi",
+  subtitle: none,
   /// Type of thesis
   /// -> string
   thesis-type: "Elaborato Finale",
@@ -53,8 +53,8 @@
   /// -> bool
   header-line: false,
   /// The chosen frontispiece.
-  /// -> string
-  frontispiece: "alternate",
+  /// -> "lim" | "alternate"
+  frontispiece: "lim",
   body,
 ) = {
   set document(
@@ -96,10 +96,7 @@
 
         if heading.numbering != none {
           let heading-count = counter(heading).display(
-            (..args) => numbering(
-              heading.numbering,
-              args.pos().first(),
-            ),
+            (..args) => _custom-numbering(heading.numbering, args),
           )
           output = heading-count + ". " + output
         }
@@ -162,12 +159,7 @@
     link(
       it.element.location(),
       strong(it.indented(
-        {
-          it.prefix()
-          if (it.element.numbering != none) {
-            [ --]
-          }
-        },
+        it.prefix(),
         it.element.body + h(1fr) + it.page(),
       )),
     )
@@ -179,7 +171,7 @@
     pagebreak(weak: true)
     v(3cm)
     if (it.numbering != none) {
-      counter(selector(heading)).display()
+      counter(selector(heading)).display((..args) => _custom-numbering(it.numbering, args))
     }
     v(10pt)
     set par(first-line-indent: 0em)
@@ -231,7 +223,7 @@
 
   show link: it => {
     if type(it.dest) == str {
-      set text(font: link-font)
+      set text(font: link-font, size: 0.8em)
       it
     } else {
       it
@@ -277,7 +269,7 @@
 #let mainmatter(body) = {
   _document-state.update("MAINMATTER")
   set page(numbering: "1")
-  set heading(numbering: (..args) => _custom-numbering("1.1", ..args))
+  set heading(numbering: "1.1")
   counter(page).update(1)
 
   body
@@ -289,7 +281,7 @@
 #let appendix(body) = {
   _document-state.update("APPENDIX")
   counter(heading).update(0)
-  set heading(numbering: (..args) => _custom-numbering("A.1", ..args))
+  set heading(numbering: "A.1")
 
   body
 }
@@ -321,7 +313,7 @@
         _localization.at(text.lang).toc,
       ),
     ),
-    indent: 1em,
+    // indent: 1em,
   )
 }
 
@@ -397,7 +389,7 @@
 
 /// Ready-made laboratories.
 /// -> dictionary
-#let laboratories = yaml("utils/laboratories.yaml")
+#let laboratories = yaml("resources/laboratories.yaml")
 
 /// Display the laboratory involved in the thesis development.
 /// -> content

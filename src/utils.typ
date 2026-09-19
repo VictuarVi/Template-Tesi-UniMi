@@ -19,7 +19,7 @@
 
 /// Localization dictionary.
 /// -> dict
-#let _localization = yaml("utils/locale.yaml")
+#let _localization = yaml("resources/locale.yaml")
 
 /// Get the lvl. 1 heading in the current page. Returns an empty array if none are found.
 /// -> array
@@ -37,10 +37,12 @@
   }
 }
 
-/// Custom numbering with prefix included.
+/// Custom numbering with prefix included. Used in headers, chapter numbers.
 /// -> string
-#let _custom-numbering(numbering, ..args) = context {
-  return _get-prefix() + " " + std.numbering(numbering, ..args)
+#let _custom-numbering(numbering, args) = context {
+  if (args.pos().len() != 0) {
+    return _get-prefix() + " " + std.numbering(numbering, args.pos().first())
+  }
 }
 
 /// Helper function to handle (co)supervisor(s).
@@ -79,4 +81,3 @@
     linebreak()
   }
 }
-

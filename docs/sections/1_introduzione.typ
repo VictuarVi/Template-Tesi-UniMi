@@ -31,7 +31,6 @@ Per quanto riguarda Typst, è possibile impostare i seguenti parametri:
     Corsi di Laurea Triennale in \
     Corso di Laurea
   ],
-  // metadata-title: "", // se si vuole un titolo nei metadata diverso da quello stampato
   title: "Un template meraviglioso",
   thesis-type: "Elaborato Finale",
   author: "Nome Cognome",
@@ -46,11 +45,10 @@ Per quanto riguarda Typst, è possibile impostare i seguenti parametri:
   ),
 )
 ```
-Di default, sono tutti ```typc none``` -- quindi vanno compilati: qui sopra sono ad esempio (come nel `README`). Tutti gli attributi sono sufficientemente chiari -- tranne `metadata-title`:
-- Esso il titolo che appare _nei metadata_; quello che appare nel PDF è `title`
-- Se `metadata-title` è vuoto, allora è uguale a `title`
+Di default, sono tutti ```typc none``` -- quindi vanno compilati: qui sopra sono ad esempio (come nel `README`).
 
 Inoltre ci sono:
+- `frontispiece`, che può essere "lim" oppure "alternate", per cambiare il frontespizio
 - `header-line` (true/false): se aggiungere una riga nera al di sotto dell'intestazione
 - `link-font`: per cambiare il font dei link
 

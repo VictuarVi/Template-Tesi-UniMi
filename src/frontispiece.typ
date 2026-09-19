@@ -1,5 +1,4 @@
 #import "utils.typ": *
-#import "presentami.typ": _make-logo
 
 #let frontispieces = (
   "alternate": (
@@ -10,45 +9,34 @@
     course,
     title,
     subtitle,
-    supervisors,
-    cosupervisors,
+    supervisor,
+    cosupervisor,
     thesis-type,
     author,
     serial-number,
     academic-year,
   ) => page(
+    margin: (top: 2cm),
     footer: none,
     {
       set align(center + top)
 
-      // image(
-      //   "img/unimi-black.svg",
-      //   height: 40mm
-      // )
+      unilogo
+      text(
+        size: 2em,
+        weight: 500,
+        upper("Università degli Studi di Milano"),
+      )
       {
         set par(spacing: 0cm)
-        scale(80%, _make-logo(_color: black))
 
         set text(size: 1.7em, font: "Liberation Serif")
         if faculty != none {
           upper(faculty)
         }
-
-        // if faculty != none {
-        //   parbreak()
-        //   upper(department)
-        // }
-
-        // if course != none {
-        //   parbreak()
-        //   upper(course)
-        // }
       }
 
-      // image(unilogo)
-      // unilogo
-
-      v(1.5cm)
+      v(4.5cm)
 
       block(
         width: 100%,
@@ -56,7 +44,7 @@
         inset: (bottom: 2em),
         text(
           size: 3.5em,
-          weight: 500,
+          weight: 450,
           smallcaps(title),
         ),
       )
@@ -81,10 +69,8 @@
         set text(size: 1.3em)
         set align(left)
 
-        // emph("A cura di")
         set text(size: 1.1em)
         parbreak()
-        // "Laureando: " + author
         smallcaps(author)
         if serial-number != none {
           parbreak()
@@ -97,17 +83,16 @@
         }
 
         set align(right)
-        if supervisors != none {
+        if supervisor != none {
           v(2em)
-          _show-starvisor(supervisors, "supervisor")
+          _show-starvisor(supervisor, "supervisor")
         }
-        if cosupervisors != none {
-          _show-starvisor(cosupervisors, "supervisor")
+        if cosupervisor != none {
+          _show-starvisor(cosupervisor, "cosupervisor")
         }
 
         if department != none {
           parbreak()
-          // emph(department)
           department
         }
       }
@@ -116,13 +101,13 @@
 
       text(
         size: 1.2em,
-        smallcaps(context{
+        smallcaps(context {
           _localization.at(text.lang).academic-year
           if type(academic-year) == datetime {
             let current-year = academic-year.year()
             str(current-year - 1) + [ --- ] + str(current-year)
           } else {
-            academic-year
+            " " + academic-year
           }
         }),
       )

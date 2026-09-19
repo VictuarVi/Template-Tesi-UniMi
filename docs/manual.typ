@@ -2,27 +2,29 @@
 #import "@preview/zebraw:0.6.3": *
 
 #show: zebraw
+#let typst = {
+  set text(
+    size: 1.05em,
+    weight: "bold",
+    fill: rgb("#239dad"),
+  )
+  box({
+    text("T")
+    text("y")
+    h(0.035em)
+    text("p")
+    h(-0.025em)
+    text("s")
+    h(-0.015em)
+    text("t")
+  })
+}
+#show "typst": typst
+#show "Typst": typst
 
 #show: unimi-thesis.with(
   title: {
-    let typst = {
-      set text(
-        size: 1.05em,
-        weight: "bold",
-        fill: rgb("#239dad"),
-      )
-      box({
-        text("t")
-        text("y")
-        h(0.035em)
-        text("p")
-        h(-0.025em)
-        text("s")
-        h(-0.015em)
-        text("t")
-      })
-    }
-    [Un template realizzato \ con #typst]
+    [Un template realizzato con Typst]
   },
   language: "it",
 )

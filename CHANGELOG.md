@@ -5,7 +5,7 @@
 ## 0.2.0 - TBA
 
 - Added presentation
-- Added presentation manual
+- Added presentation manual (it, en)
 - Added proper documentation
 - Added alternate frontispiece
 - Added subtitle arguments

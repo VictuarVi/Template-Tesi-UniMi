@@ -1,4 +1,4 @@
-#import "@preview/touying:0.7.3": *
+#import "@preview/touying:0.7.4": *
 #import "statale-colors.typ" as palette
 #import "utils.typ": _localization
 

@@ -1,42 +1,38 @@
 #import "@preview/simple-unimi-thesis:0.2.0": *
-#import "@preview/touying:0.7.3": *
+#import "@preview/touying:0.7.4": *
 
 #show: unimi-presentation.with(
   config-info(
-    title: [Titolo della presentazione],
-    course: [Corso di Laurea],
-    author: [Nome Cognome],
+    title: [Title of the presentation],
+    course: [Degree course],
+    author: [Name Surname],
     serial-number: [123456],
     date: datetime.today(),
   ),
 )
 
-#set text(lang: "it")
-
 #title-slide()
 
-= Prima sezione
+= First section
 
-== Prima diapositiva
-
-#lorem(20)
-
-#lorem(20)
-
-== Seconda diapositiva
+== First slide
 
 #lorem(20)
 
 #lorem(20)
 
-= Seconda sezione
+== Second slide
 
-== Terza diapositiva
+#lorem(20)
 
-#columns[
-  #for i in range(0, 6) {
-    [- #lorem(15) #pause]
-  }
-]
+#lorem(20)
 
-#focus-slide("Grazie per l'ascolto.")
+= Second section
+
+== First slide
+
+#lorem(20)
+
+#lorem(20)
+
+#focus-slide("Thanks for listening.")
