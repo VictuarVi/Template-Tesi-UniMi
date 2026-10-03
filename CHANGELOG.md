@@ -1,8 +1,6 @@
 # Changelog
 
-## Unreleased
-
-## 0.2.0 - TBA
+## 0.2.0 - 2026-10-03
 
 - Added presentation
 - Added presentation manual (it, en)
@@ -10,10 +8,15 @@
 - Added alternate frontispiece
 - Added subtitle arguments
 - Correctly aligned arguments
+  - Renamed `project()` to `unimi-thesis()`
+  - Split `author` argument into `author` and `serial-number`
+  - Renamed `academicyear` to `academic-year`
+  - Renamed `type-of-thesis` to `thesis-type`
+  - Renamed `cdl` to `course`
+  - Removed `title-metadata` argument
 - Updated manual
 - Changed `closingpage()` to be more modular
 - Overall code refactor
-- Removed `title-metadata` argument
 
 ## 0.1.1 - 2026-03-16
 
