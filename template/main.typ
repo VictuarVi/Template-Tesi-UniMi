@@ -1,30 +1,57 @@
-#import "@preview/simple-unimi-thesis:0.1.1": *
+#import "@preview/simple-unimi-thesis:0.2.0": *
 
-#show: project
+#show: unimi-thesis.with(
+  title: "Titolo della Tesi",
+  author: "Nome Cognome",
+  serial-number: "123456",
+  faculty: [Facoltà di Scienze e Tecnologie],
+  department: [Dipartimento di Informatica \ Giovanni degli Antoni],
+  course: [Corso di Laurea Triennale in \ Corso di Laurea],
+  supervisors: (
+    "Prof. Primo Relatore",
+  ),
+  cosupervisors: "Prof. Primo Correlatore",
+  thesis-type: "Elaborato Finale",
+  // academic-year: [2026 --- 2027],
+)
 
 #show: frontmatter
 
 // dedication
 
+#dedication[
+  #lorem(20)
+
+  --- Anonimo
+]
+
 // acknowledgements
 
 #show: acknowledgements
 
-= Acknowledgements
+= Riconoscimenti
 
 #lorem(100)
 
 #toc // table of contents
 
+#list-of-figures
+
+#list-of-tables
+
 #show: mainmatter
 
 // main section of the thesis
 
-= First chapter
+= Primo capitolo
 
 #lorem(100)
 
-= Second chapter
+#lorem(100)
+
+= Secondo capitolo
+
+#lorem(100)
 
 #lorem(100)
 
@@ -32,7 +59,7 @@
 
 #show: appendix
 
-= First appendix
+= Appendice
 
 #lorem(100)
 
@@ -41,7 +68,4 @@
 // bibliography
 
 // associated laboratory
-
-// if the laboratory you want to cite is missing:
-#let missinglab = yaml("myoverride.yml")
-#closingpage("mylab", laboratories: missinglab)
+#closingpage()
